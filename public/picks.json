@@ -2,26 +2,10 @@
   {
     "name": "Joshua",
     "friday": [
-      {
-        "game": "Sharks vs Kings",
-        "pick": "Kings"
-      },
-      {
-        "game": "Senators vs Golden Knights",
-        "pick": "Golden Knights"
-      }
     ],
     "saturday": [
-      {
-        "game": "Red Wings vs Sabres",
-        "pick": "Red Wings"
-      }
     ],
     "sunday": [
-      {
-        "game": "Oilers vs Red Wings",
-        "pick": "Red Wings"
-      }
     ]
   }
 ]

@@ -62,6 +62,8 @@ function PlayerForm({ onSavePicks }) {
           >
             <option value="">Choose Player</option>
             <option value="Joshua">Joshua</option>
+            <option value="John">John</option>
+            <option value="Andrew">Andrew</option>
             {/* Add other players here */}
           </select>
         </div>

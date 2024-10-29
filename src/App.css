@@ -1,0 +1,183 @@
+/* Overall Page Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.app-title {
+  text-align: center;
+  font-size: 36px;
+  color: #003366;
+  margin-bottom: 30px;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #003366;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+td {
+  background-color: #f9f9f9;
+}
+
+.picks-column {
+  background-color: #eef5ff;
+}
+
+.game-pick {
+  margin-bottom: 8px;
+}
+
+/* Highlight for Picked Team */
+.picked-team {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+/* Player Name Styling */
+.player-name {
+  font-weight: bold;
+  color: #0056b3;
+}
+
+/* Leaderboard Title */
+.leaderboard-title {
+  text-align: center;
+  font-size: 28px;
+  color: #003366;
+  margin-bottom: 20px;
+}
+
+/* Leaderboard Table Styling */
+.leaderboard-table {
+  margin-top: 20px;
+}
+
+.leaderboard-table td, .leaderboard-table th {
+  text-align: center;
+}
+
+.leaderboard-table th {
+  background-color: #003366;
+  color: white;
+  padding: 12px;
+}
+
+.leaderboard-table td {
+  background-color: #f9f9f9;
+  padding: 12px;
+}
+
+/* Blue Bar Separator */
+.separator-row .blue-bar {
+  background-color: #003366;
+  height: 2px;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Expand button */
+.expand-button {
+  background-color: #0056b3;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.expand-button:hover {
+  background-color: #003d80;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .App {
+    padding: 10px;
+  }
+
+  .app-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  .picks-column, .leaderboard-table td {
+    font-size: 11px;
+  }
+
+  .game-pick {
+    margin-bottom: 5px;
+  }
+
+  .leaderboard-title {
+    font-size: 24px;
+  }
+
+  .expand-button {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+}
+
+/* Very Small Mobile Devices */
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 24px;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+
+  table {
+    font-size: 10px;
+  }
+
+  .expand-button {
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+
+  .leaderboard-title {
+    font-size: 20px;
+  }
+}

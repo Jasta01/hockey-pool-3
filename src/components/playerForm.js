@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./playerForm.css";
 
 function PlayerForm({ onSavePicks }) {
-  const [schedule, setSchedule] = useState({}); // Store game schedule
-  const [selectedPlayer, setSelectedPlayer] = useState(""); // Track selected player
-  const [playerPicks, setPlayerPicks] = useState({ friday: [], saturday: [], sunday: [] }); // Store player's picks
+  const [schedule, setSchedule] = useState({});
+  const [selectedPlayer, setSelectedPlayer] = useState("");
+  const [playerPicks, setPlayerPicks] = useState({ friday: [], saturday: [], sunday: [] });
 
-  // Load schedule from JSON file
   useEffect(() => {
     fetch("/schedule.json")
       .then((response) => response.json())
@@ -14,36 +13,37 @@ function PlayerForm({ onSavePicks }) {
       .catch((error) => console.error("Error loading schedule:", error));
   }, []);
 
-  // Handle the selection of a pick for a game
   const handlePickChange = (day, index, pick) => {
     setPlayerPicks((prevPicks) => {
       const updatedPicks = [...prevPicks[day]];
-      updatedPicks[index] = { game: schedule[day][index].game, pick }; // Include game info
+      updatedPicks[index] = { game: schedule[day][index].game, pick };
       return { ...prevPicks, [day]: updatedPicks };
     });
   };
 
-  // Handle form submission
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
     if (!selectedPlayer) {
-      alert("Please select a player."); // Ensure a player is selected
+      alert("Please select a player.");
       return;
     }
     
-    // Prepare data for submission
     const dataToSubmit = { name: selectedPlayer, ...playerPicks };
 
-    // Call parent function to save picks
-    onSavePicks(dataToSubmit); // Pass the data back to the parent component
+    onSavePicks(dataToSubmit);
 
-    // Optionally, you can also send the data to your API
-    fetch("/api/savePicks", {
+    fetch("https://hockey-pool-3.vercel.app/api/savePicks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dataToSubmit),
     })
-      .then((response) => response.json())
+      .then(async (response) => {
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Request failed: ${errorText}`);
+        }
+        return response.json();
+      })
       .then((data) => alert(data.message))
       .catch((error) => console.error("Error saving picks:", error));
   };
@@ -52,7 +52,7 @@ function PlayerForm({ onSavePicks }) {
     <div className="player-form">
       <h2 className="form-title">Player Picks</h2>
 
-      <form onSubmit={handleSubmit}> {/* Add a form element */}
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label className="form-label">Select Player:</label>
           <select
@@ -62,9 +62,6 @@ function PlayerForm({ onSavePicks }) {
           >
             <option value="">Choose Player</option>
             <option value="Joshua">Joshua</option>
-            <option value="John">John</option>
-            <option value="Andrew">Andrew</option>
-            {/* Add other players here */}
           </select>
         </div>
 
@@ -91,7 +88,7 @@ function PlayerForm({ onSavePicks }) {
           </div>
         ))}
 
-        <button type="submit" className="submit-button">Save Picks</button> {/* Set button type to submit */}
+        <button type="submit" className="submit-button">Save Picks</button>
       </form>
     </div>
   );

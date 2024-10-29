@@ -38,7 +38,7 @@ function PlayerForm({ onSavePicks }) {
     onSavePicks(dataToSubmit); // Pass the data back to the parent component
 
     // Optionally, you can also send the data to your API
-    fetch("http://localhost:3000/api/savePicks", {
+    fetch("/api/savePicks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dataToSubmit),

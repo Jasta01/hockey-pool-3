@@ -1,39 +1,64 @@
 import fs from 'fs';
 import path from 'path';
+import Cors from 'cors';
 
-export default async (req, res) => {
-  if (req.method === "POST") {
-    try {
-      const picks = req.body;
+// Initialize CORS middleware
+const cors = Cors({
+  methods: ['POST', 'GET', 'OPTIONS'],
+  origin: '*', // Change this to your frontend URL in production
+});
 
-      // Validate if picks data has the required structure
-      if (!picks || !picks.name || !picks.fridayPicks || !picks.saturdayPicks || !picks.sundayPicks) {
-        return res.status(400).json({ message: "Invalid picks data." });
+function runCors(req, res) {
+  return new Promise((resolve, reject) => {
+    cors(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
+  });
+}
+
+export default async function handler(req, res) {
+  await runCors(req, res); // Run CORS middleware
+
+  if (req.method === 'POST') {
+    const picksData = req.body;
+
+    // Path to your JSON file
+    const filePath = path.join(process.cwd(), 'picks.json');
+
+    // Read current data from the JSON file
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: 'Error reading file' });
       }
 
-      // Define the path to the picks.json file
-      const filePath = path.join(process.cwd(), 'public', 'picks.json');
-
-      // Read existing data or initialize an empty array if the file doesn't exist
-      let fileData = [];
-      if (fs.existsSync(filePath)) {
-        const rawData = fs.readFileSync(filePath, 'utf-8');
-        fileData = rawData ? JSON.parse(rawData) : [];
+      // Parse current data and add new picks
+      let picks = JSON.parse(data);
+      const existingPlayerIndex = picks.findIndex(player => player.name === picksData.name);
+      
+      if (existingPlayerIndex !== -1) {
+        // Update existing player picks
+        picks[existingPlayerIndex] = { ...picks[existingPlayerIndex], ...picksData };
+      } else {
+        // Add new player picks
+        picks.push(picksData);
       }
 
-      // Add the new picks to the file data
-      fileData.push(picks);
-
-      // Write updated data back to the file
-      fs.writeFileSync(filePath, JSON.stringify(fileData, null, 2));
-
-      res.status(200).json({ message: "Picks saved successfully!" });
-    } catch (error) {
-      console.error("Error writing to file:", error);
-      res.status(500).json({ message: "Error saving picks." });
-    }
+      // Write updated data back to the JSON file
+      fs.writeFile(filePath, JSON.stringify(picks, null, 2), 'utf8', (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ message: 'Error writing file' });
+        }
+        return res.status(200).json({ message: 'Picks saved successfully!' });
+      });
+    });
   } else {
-    res.setHeader("Allow", ["POST"]);
+    // Handle any other HTTP method
+    res.setHeader('Allow', ['POST']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-};
+}

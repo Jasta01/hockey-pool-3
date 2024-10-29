@@ -1,33 +1,39 @@
 import fs from 'fs';
 import path from 'path';
 
-// Define and export the API endpoint
 export default async (req, res) => {
   if (req.method === "POST") {
-    const picksData = req.body;  // Retrieve the picks data from the request body
-    const filePath = path.join(process.cwd(), "public", "picks.json");
-
     try {
-      // Read the current picks data from picks.json
-      const currentData = JSON.parse(fs.readFileSync(filePath, "utf8"));
+      const picks = req.body;
 
-      // Add the new picks to the existing data
-      currentData.push(picksData);
+      // Validate if picks data has the required structure
+      if (!picks || !picks.name || !picks.fridayPicks || !picks.saturdayPicks || !picks.sundayPicks) {
+        return res.status(400).json({ message: "Invalid picks data." });
+      }
 
-      // Write the updated data back to picks.json
-      fs.writeFileSync(filePath, JSON.stringify(currentData, null, 2));
+      // Define the path to the picks.json file
+      const filePath = path.join(process.cwd(), 'public', 'picks.json');
 
-      // Send a success response
-      res.status(200).json({ message: "Picks saved!" });
+      // Read existing data or initialize an empty array if the file doesn't exist
+      let fileData = [];
+      if (fs.existsSync(filePath)) {
+        const rawData = fs.readFileSync(filePath, 'utf-8');
+        fileData = rawData ? JSON.parse(rawData) : [];
+      }
+
+      // Add the new picks to the file data
+      fileData.push(picks);
+
+      // Write updated data back to the file
+      fs.writeFileSync(filePath, JSON.stringify(fileData, null, 2));
+
+      res.status(200).json({ message: "Picks saved successfully!" });
     } catch (error) {
-      console.error("Error saving picks:", error);
-      
-      // Send an error response if something goes wrong
-      res.status(500).json({ message: "Failed to save picks." });
+      console.error("Error writing to file:", error);
+      res.status(500).json({ message: "Error saving picks." });
     }
   } else {
-    // Respond with a 405 error if the request method is not POST
     res.setHeader("Allow", ["POST"]);
-    res.status(405).json({ message: "Method not allowed." });
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };

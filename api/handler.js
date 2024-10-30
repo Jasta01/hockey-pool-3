@@ -1,5 +1,5 @@
 import Cors from 'cors';
-import { Pool } from 'pg'; // Using pg instead of @vercel/postgres
+import { Pool } from 'pg';
 import bodyParser from 'body-parser';
 
 // Initialize CORS middleware
@@ -41,15 +41,21 @@ export default async function handler(req, res) {
       // SQL query to insert or update player picks
       const query = `
         INSERT INTO player_picks (name, friday_picks, saturday_picks, sunday_picks)
-        VALUES ($1, $2, $3, $4)
+        VALUES ($1, $2::json, $3::json, $4::json)
         ON CONFLICT (name) DO UPDATE 
-        SET friday_picks = $2, saturday_picks = $3, sunday_picks = $4;
+        SET friday_picks = $2::json, saturday_picks = $3::json, sunday_picks = $4::json;
       `;
 
       // Log the prepared data for debugging
       console.log('Prepared SQL Data:', [name, friday, saturday, sunday]);
 
-      await pool.query(query, [name, friday, saturday, sunday]);
+      await pool.query(query, [
+        name,
+        JSON.stringify(friday),  // Convert array to JSON string
+        JSON.stringify(saturday), // Convert array to JSON string
+        JSON.stringify(sunday)    // Convert array to JSON string
+      ]);
+
       res.status(200).json({ message: 'Picks saved successfully!' });
 
     } else if (req.method === 'GET') {

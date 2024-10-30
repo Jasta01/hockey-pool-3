@@ -50,30 +50,31 @@ const PlayerForm = () => {
     e.preventDefault();
     const data = {
       name: selectedPlayer,
-      friday: fridayPicks.join(', '), // Send as a comma-separated string or adjust as needed
-      saturday: saturdayPicks.join(', '),
-      sunday: sundayPicks.join(', '),
+      friday: fridayPicks,     // Keep as array
+      saturday: saturdayPicks, // Keep as array
+      sunday: sundayPicks      // Keep as array
     };
-
-    console.log('Data to be sent:', data);
-
+  
     try {
       const response = await fetch('/api/handler', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data), // Send data as JSON
       });
-
+  
       if (!response.ok) {
         throw new Error(`Error saving picks: ${response.statusText}`);
       }
-
+  
       const result = await response.json();
       console.log(result.message);
     } catch (error) {
       console.error('Error saving picks:', error);
     }
   };
+  
 
   return (
     <div className="player-form">

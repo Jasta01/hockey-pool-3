@@ -32,11 +32,12 @@ function PlayerForm({ onSavePicks }) {
 
     onSavePicks(dataToSubmit);
 
-    fetch("/api/savePicks", {
+    fetch("/api/handler", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dataToSubmit),
     })
+
       .then(async (response) => {
         if (!response.ok) {
           const errorText = await response.text();

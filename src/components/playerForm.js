@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./playerForm.css"
 
 const PlayerForm = () => {
   const [playerName, setPlayerName] = useState('');

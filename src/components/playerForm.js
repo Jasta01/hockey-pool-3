@@ -30,7 +30,7 @@ const PlayerForm = () => {
       name: selectedPlayer,
       friday: fridayPicks.join(', '), // Send as a comma-separated string or adjust as needed
       saturday: saturdayPicks.join(', '),
-      sunday: sundayPicks.join(', ',
+      sunday: sundayPicks.join(', '),
     };
 
     console.log('Data to be sent:', data); // Log the data being sent

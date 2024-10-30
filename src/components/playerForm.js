@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./playerForm.css";
 
-const PlayerForm = ({ schedule }) => {
+const PlayerForm = ({ schedule = { friday: [], saturday: [], sunday: [] } }) => {
   const [selectedPlayer, setSelectedPlayer] = useState('');
   const [fridayPicks, setFridayPicks] = useState('');
   const [saturdayPicks, setSaturdayPicks] = useState('');

@@ -21,33 +21,31 @@ function PlayerForm({ onSavePicks }) {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!selectedPlayer) {
-      alert("Please select a player.");
-      return;
-    }
-    
-    const dataToSubmit = { name: selectedPlayer, ...playerPicks };
+const handleSubmit = (event) => {
+  event.preventDefault();
+  if (!selectedPlayer) {
+    alert("Please select a player.");
+    return;
+  }
 
-    onSavePicks(dataToSubmit);
+  const dataToSubmit = { name: selectedPlayer, ...playerPicks };
 
-    fetch("/api/handler", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dataToSubmit),
+  fetch("https://hockey-pool-3.vercel.app/api/handler", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dataToSubmit),
+  })
+    .then(async (response) => {
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Request failed: ${errorText}`);
+      }
+      return response.json();
     })
+    .then((data) => alert(data.message))
+    .catch((error) => console.error("Error saving picks:", error));
+};
 
-      .then(async (response) => {
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Request failed: ${errorText}`);
-        }
-        return response.json();
-      })
-      .then((data) => alert(data.message))
-      .catch((error) => console.error("Error saving picks:", error));
-  };
 
   return (
     <div className="player-form">

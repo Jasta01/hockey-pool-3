@@ -80,56 +80,69 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {playersData.length > 0 ? (
-            playersData.map((player, index) => (
-              <React.Fragment key={index}>
-                <tr className="player-row">
-                  <td className="player-name">{player.name}</td>
-                  <td className="picks-column">
-                    {player.fridayPicks?.map((pickData, i) => (
-                      <div key={i} className="game-pick">
-                        {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
-                      </div>
-                    ))}
-                  </td>
-                  <td className="picks-column">
-                    {player.saturdayPicks?.map((pickData, i) => (
-                      <div key={i} className="game-pick">
-                        {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
-                      </div>
-                    ))}
-                  </td>
-                  <td className="picks-column">
-                    {player.sundayPicks?.map((pickData, i) => (
-                      <div key={i} className="game-pick">
-                        {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
-                      </div>
-                    ))}
-                  </td>
-                  <td>
-                    <button className="expand-button" onClick={() => toggleRow(index)}>
-                      {expandedRows[index] ? "Show Less" : "Show More"}
-                    </button>
-                  </td>
-                </tr>
-                {expandedRows[index] && (
-                  <tr>
-                    <td colSpan="5" style={{ background: "#f1f1f1" }}>
-                      <p>Additional Details for {player.name}</p>
-                    </td>
-                  </tr>
-                )}
-                <tr className="separator-row">
-                  <td colSpan="5" className="blue-bar"></td>
-                </tr>
-              </React.Fragment>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>No players found.</td>
-            </tr>
-          )}
-        </tbody>
+  {playersData.length > 0 ? (
+    playersData.map((player, index) => (
+      <React.Fragment key={index}>
+        <tr className="player-row">
+          <td className="player-name">{player.name}</td>
+          <td className="picks-column">
+            {player.fridayPicks.length > 0 ? (
+              player.fridayPicks.map((pickData, i) => (
+                <div key={i} className="game-pick">
+                  {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                </div>
+              ))
+            ) : (
+              <div>No picks</div>
+            )}
+          </td>
+          <td className="picks-column">
+            {player.saturdayPicks.length > 0 ? (
+              player.saturdayPicks.map((pickData, i) => (
+                <div key={i} className="game-pick">
+                  {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                </div>
+              ))
+            ) : (
+              <div>No picks</div>
+            )}
+          </td>
+          <td className="picks-column">
+            {player.sundayPicks.length > 0 ? (
+              player.sundayPicks.map((pickData, i) => (
+                <div key={i} className="game-pick">
+                  {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                </div>
+              ))
+            ) : (
+              <div>No picks</div>
+            )}
+          </td>
+          <td>
+            <button className="expand-button" onClick={() => toggleRow(index)}>
+              {expandedRows[index] ? "Show Less" : "Show More"}
+            </button>
+          </td>
+        </tr>
+        {expandedRows[index] && (
+          <tr>
+            <td colSpan="5" style={{ background: "#f1f1f1" }}>
+              <p>Additional Details for {player.name}</p>
+            </td>
+          </tr>
+        )}
+        <tr className="separator-row">
+          <td colSpan="5" className="blue-bar"></td>
+        </tr>
+      </React.Fragment>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="5" style={{ textAlign: "center" }}>No players found.</td>
+    </tr>
+  )}
+</tbody>
+
       </table>
 
       <h2 className="leaderboard-title">Leaderboard</h2>

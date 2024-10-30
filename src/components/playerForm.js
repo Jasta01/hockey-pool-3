@@ -30,7 +30,7 @@ const handleSubmit = (event) => {
 
   const dataToSubmit = { name: selectedPlayer, ...playerPicks };
 
-  fetch("https://hockey-pool-3.vercel.app/api/handler", {
+  fetch("/api/handler", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dataToSubmit),

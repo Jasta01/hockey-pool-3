@@ -1,4 +1,4 @@
-import Cors from 'cors';
+]import Cors from 'cors';
 import { Client } from '@vercel/postgres';
 
 // Initialize CORS middleware
@@ -18,13 +18,17 @@ function runCors(req, res) {
   });
 }
 
-const client = new Client();
-await client.connect();
-
 export default async function handler(req, res) {
   await runCors(req, res);
 
+  // Create a new client instance for each request
+  const client = new Client({
+    connectionString: process.env.POSTGRES_URL, // Ensure this variable is set in your Vercel environment
+  });
+
   try {
+    await client.connect(); // Connect to the database
+
     if (req.method === 'POST') {
       // Save player picks to Postgres
       const { name, friday, saturday, sunday } = req.body;
@@ -49,5 +53,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error', error: error.message });
+  } finally {
+    await client.end(); // Ensure the client is closed after the request
   }
 }

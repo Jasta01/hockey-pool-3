@@ -1,5 +1,6 @@
 import Cors from 'cors';
-import { Pool } from 'pg'; // Using pg package
+import { Pool } from 'pg'; // Using pg instead of @vercel/postgres
+import bodyParser from 'body-parser';
 
 // Initialize CORS middleware
 const cors = Cors({
@@ -19,7 +20,7 @@ function runCors(req, res) {
   });
 }
 
-// Create a new pool instance for database connection
+// Create a new pool instance for connecting to the database
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL, // Ensure this environment variable is set in Vercel
 });
@@ -29,9 +30,13 @@ export default async function handler(req, res) {
   await runCors(req, res);
 
   try {
+    // Ensure we are parsing the body correctly
+    const body = req.body;
+    console.log("Request body:", body); // Log request body for debugging
+
     if (req.method === 'POST') {
       // Save player picks to Postgres
-      const { name, friday, saturday, sunday } = req.body;
+      const { name, friday, saturday, sunday } = body;
 
       // SQL query to insert or update player picks
       const query = `
@@ -40,8 +45,13 @@ export default async function handler(req, res) {
         ON CONFLICT (name) DO UPDATE 
         SET friday_picks = $2, saturday_picks = $3, sunday_picks = $4;
       `;
-      
-      await pool.query(query, [name, friday, saturday, sunday]);
+
+      // Check if inputs are valid JSON
+      const fridayPicks = JSON.parse(friday); // Ensure it's a valid JSON
+      const saturdayPicks = JSON.parse(saturday);
+      const sundayPicks = JSON.parse(sunday);
+
+      await pool.query(query, [name, fridayPicks, saturdayPicks, sundayPicks]);
       res.status(200).json({ message: 'Picks saved successfully!' });
 
     } else if (req.method === 'GET') {

@@ -1,96 +1,81 @@
-import React, { useState, useEffect } from "react";
-import "./playerForm.css";
+import React, { useState } from 'react';
 
-function PlayerForm({ onSavePicks }) {
-  const [schedule, setSchedule] = useState({});
-  const [selectedPlayer, setSelectedPlayer] = useState("");
-  const [playerPicks, setPlayerPicks] = useState({ friday: [], saturday: [], sunday: [] });
+const PlayerForm = () => {
+  const [playerName, setPlayerName] = useState('');
+  const [fridayPicks, setFridayPicks] = useState('');
+  const [saturdayPicks, setSaturdayPicks] = useState('');
+  const [sundayPicks, setSundayPicks] = useState('');
 
-  useEffect(() => {
-    fetch("/schedule.json")
-      .then((response) => response.json())
-      .then((data) => setSchedule(data))
-      .catch((error) => console.error("Error loading schedule:", error));
-  }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      name: playerName,
+      friday: JSON.stringify(fridayPicks), // Ensure these are valid JSON
+      saturday: JSON.stringify(saturdayPicks),
+      sunday: JSON.stringify(sundayPicks),
+    };
 
-  const handlePickChange = (day, index, pick) => {
-    setPlayerPicks((prevPicks) => {
-      const updatedPicks = [...prevPicks[day]];
-      updatedPicks[index] = { game: schedule[day][index].game, pick };
-      return { ...prevPicks, [day]: updatedPicks };
-    });
+    try {
+      const response = await fetch('/api/handler', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data), // Ensure data is stringified
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error saving picks: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log(result.message);
+    } catch (error) {
+      console.error('Error saving picks:', error);
+    }
   };
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-  if (!selectedPlayer) {
-    alert("Please select a player.");
-    return;
-  }
-
-  const dataToSubmit = { name: selectedPlayer, ...playerPicks };
-
-  fetch("/api/handler", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(dataToSubmit),
-  })
-    .then(async (response) => {
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Request failed: ${errorText}`);
-      }
-      return response.json();
-    })
-    .then((data) => alert(data.message))
-    .catch((error) => console.error("Error saving picks:", error));
-};
-
-
   return (
-    <div className="player-form">
-      <h2 className="form-title">Player Picks</h2>
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="form-label">Select Player:</label>
-          <select
-            onChange={(e) => setSelectedPlayer(e.target.value)}
-            value={selectedPlayer}
-            className="player-select"
-          >
-            <option value="">Choose Player</option>
-            <option value="Joshua">Joshua</option>
-          </select>
-        </div>
-
-        {["friday", "saturday", "sunday"].map((day) => (
-          <div key={day} className="day-section">
-            <h3 className="day-title">{day.charAt(0).toUpperCase() + day.slice(1)}'s Games</h3>
-            {schedule[day]?.map((game, index) => (
-              <div key={index} className="game-item">
-                <label className="game-label">{game.game}</label>
-                <select
-                  onChange={(e) => handlePickChange(day, index, e.target.value)}
-                  className="game-select"
-                >
-                  <option value="">Select Winner</option>
-                  <option value={game.game.split(" vs ")[0]}>
-                    {game.game.split(" vs ")[0]}
-                  </option>
-                  <option value={game.game.split(" vs ")[1]}>
-                    {game.game.split(" vs ")[1]}
-                  </option>
-                </select>
-              </div>
-            ))}
-          </div>
-        ))}
-
-        <button type="submit" className="submit-button">Save Picks</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Name:</label>
+        <input
+          type="text"
+          value={playerName}
+          onChange={(e) => setPlayerName(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Friday Picks:</label>
+        <input
+          type="text"
+          value={fridayPicks}
+          onChange={(e) => setFridayPicks(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Saturday Picks:</label>
+        <input
+          type="text"
+          value={saturdayPicks}
+          onChange={(e) => setSaturdayPicks(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Sunday Picks:</label>
+        <input
+          type="text"
+          value={sundayPicks}
+          onChange={(e) => setSundayPicks(e.target.value)}
+          required
+        />
+      </div>
+      <button type="submit">Submit Picks</button>
+    </form>
   );
-}
+};
 
 export default PlayerForm;

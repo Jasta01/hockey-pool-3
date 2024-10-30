@@ -1,12 +1,34 @@
 import React, { useState } from 'react';
-import schedule from './schedule.json'; // Adjust the path as necessary
 import "./playerForm.css";
+
+// Define the schedule as an array
+const schedule = [
+  {
+    day: "friday",
+    games: [
+      { game: "Sharks vs Kings" },
+      { game: "Senators vs Golden Knights" }
+    ]
+  },
+  {
+    day: "saturday",
+    games: [
+      { game: "Red Wings vs Sabres" }
+    ]
+  },
+  {
+    day: "sunday",
+    games: [
+      { game: "Oilers vs Red Wings" }
+    ]
+  }
+];
 
 const PlayerForm = () => {
   const [selectedPlayer, setSelectedPlayer] = useState('');
-  const [fridayPicks, setFridayPicks] = useState('');
-  const [saturdayPicks, setSaturdayPicks] = useState('');
-  const [sundayPicks, setSundayPicks] = useState('');
+  const [fridayPicks, setFridayPicks] = useState([]);
+  const [saturdayPicks, setSaturdayPicks] = useState([]);
+  const [sundayPicks, setSundayPicks] = useState([]);
 
   const handlePickChange = (day, index, value) => {
     if (day === "friday") {
@@ -33,15 +55,13 @@ const PlayerForm = () => {
       sunday: sundayPicks.join(', '),
     };
 
-    console.log('Data to be sent:', data); // Log the data being sent
+    console.log('Data to be sent:', data);
 
     try {
       const response = await fetch('/api/handler', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data), // Ensure data is stringified
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
@@ -68,14 +88,13 @@ const PlayerForm = () => {
           >
             <option value="">Choose Player</option>
             <option value="Joshua">Joshua</option>
-            {/* Add more player options if necessary */}
           </select>
         </div>
 
-        {["friday", "saturday", "sunday"].map((day) => (
+        {schedule.map(({ day, games }) => (
           <div key={day} className="day-section">
             <h3 className="day-title">{day.charAt(0).toUpperCase() + day.slice(1)}'s Games</h3>
-            {schedule[day]?.map((game, index) => (
+            {games.map((game, index) => (
               <div key={index} className="game-item">
                 <label className="game-label">{game.game}</label>
                 <select

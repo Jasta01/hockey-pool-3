@@ -85,9 +85,9 @@ function App() {
                   <td className="player-name">{player.name}</td>
                   <td className="picks-column">
                     {player.fridayPicks?.length > 0 ? (
-                      player.fridayPicks.map((pickData, i) => (
+                      player.fridayPicks.map((pick, i) => (
                         <div key={i} className="game-pick">
-                          {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                          <strong className="picked-team">{pick}</strong>
                         </div>
                       ))
                     ) : (
@@ -96,9 +96,9 @@ function App() {
                   </td>
                   <td className="picks-column">
                     {player.saturdayPicks?.length > 0 ? (
-                      player.saturdayPicks.map((pickData, i) => (
+                      player.saturdayPicks.map((pick, i) => (
                         <div key={i} className="game-pick">
-                          {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                          <strong className="picked-team">{pick}</strong>
                         </div>
                       ))
                     ) : (
@@ -107,9 +107,9 @@ function App() {
                   </td>
                   <td className="picks-column">
                     {player.sundayPicks?.length > 0 ? (
-                      player.sundayPicks.map((pickData, i) => (
+                      player.sundayPicks.map((pick, i) => (
                         <div key={i} className="game-pick">
-                          {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                          <strong className="picked-team">{pick}</strong>
                         </div>
                       ))
                     ) : (

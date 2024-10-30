@@ -1,9 +1,5 @@
 import Cors from 'cors';
-import { Pool } from 'pg'; // Use pg instead of @vercel/postgres
-import dotenv from 'dotenv'; // Import dotenv to manage environment variables
-
-// Load environment variables from .env file
-dotenv.config();
+import { Pool } from 'pg'; // Using pg package
 
 // Initialize CORS middleware
 const cors = Cors({
@@ -23,9 +19,9 @@ function runCors(req, res) {
   });
 }
 
-// Create a new pool instance
+// Create a new pool instance for database connection
 const pool = new Pool({
-  connectionString: process.env.POSTGRES_URL, // Use the environment variable for the connection string
+  connectionString: process.env.POSTGRES_URL, // Ensure this environment variable is set in Vercel
 });
 
 // Main handler function
@@ -39,10 +35,10 @@ export default async function handler(req, res) {
 
       // SQL query to insert or update player picks
       const query = `
-        INSERT INTO player_picks (name, friday, saturday, sunday)
+        INSERT INTO player_picks (name, friday_picks, saturday_picks, sunday_picks)
         VALUES ($1, $2, $3, $4)
         ON CONFLICT (name) DO UPDATE 
-        SET friday = $2, saturday = $3, sunday = $4;
+        SET friday_picks = $2, saturday_picks = $3, sunday_picks = $4;
       `;
       
       await pool.query(query, [name, friday, saturday, sunday]);

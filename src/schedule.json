@@ -1,0 +1,13 @@
+{
+    "friday": [
+      { "game": "Sharks vs Kings" },
+      { "game": "Senators vs Golden Knights" }
+    ],
+    "saturday": [
+      { "game": "Red Wings vs Sabres" }
+    ],
+    "sunday": [
+      { "game": "Oilers vs Red Wings" }
+    ]
+  }
+  

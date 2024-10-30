@@ -30,9 +30,9 @@ export default async function handler(req, res) {
   await runCors(req, res);
 
   try {
-    // Ensure we are parsing the body correctly
+    // Log the request body for debugging
     const body = req.body;
-    console.log("Request body:", body); // Log request body for debugging
+    console.log("Request body:", body); 
 
     if (req.method === 'POST') {
       // Save player picks to Postgres
@@ -46,12 +46,10 @@ export default async function handler(req, res) {
         SET friday_picks = $2, saturday_picks = $3, sunday_picks = $4;
       `;
 
-      // Check if inputs are valid JSON
-      const fridayPicks = JSON.parse(friday); // Ensure it's a valid JSON
-      const saturdayPicks = JSON.parse(saturday);
-      const sundayPicks = JSON.parse(sunday);
+      // Log the prepared data for debugging
+      console.log('Prepared SQL Data:', [name, friday, saturday, sunday]);
 
-      await pool.query(query, [name, fridayPicks, saturdayPicks, sundayPicks]);
+      await pool.query(query, [name, friday, saturday, sunday]);
       res.status(200).json({ message: 'Picks saved successfully!' });
 
     } else if (req.method === 'GET') {

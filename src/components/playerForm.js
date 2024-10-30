@@ -10,10 +10,12 @@ const PlayerForm = () => {
     e.preventDefault();
     const data = {
       name: playerName,
-      friday: JSON.stringify(fridayPicks), // Ensure these are valid JSON
-      saturday: JSON.stringify(saturdayPicks),
-      sunday: JSON.stringify(sundayPicks),
+      friday: fridayPicks, // Send as plain string or number
+      saturday: saturdayPicks,
+      sunday: sundayPicks,
     };
+
+    console.log('Data to be sent:', data); // Log the data being sent
 
     try {
       const response = await fetch('/api/handler', {

@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
+import schedule from './schedule.json'; // Adjust the path as necessary
 import "./playerForm.css";
 
-const PlayerForm = ({ schedule = { friday: [], saturday: [], sunday: [] } }) => {
+const PlayerForm = () => {
   const [selectedPlayer, setSelectedPlayer] = useState('');
   const [fridayPicks, setFridayPicks] = useState('');
   const [saturdayPicks, setSaturdayPicks] = useState('');
   const [sundayPicks, setSundayPicks] = useState('');
 
-  const handlePickChange = (day, value) => {
-    if (day === 'friday') {
-      setFridayPicks(value);
-    } else if (day === 'saturday') {
-      setSaturdayPicks(value);
-    } else if (day === 'sunday') {
-      setSundayPicks(value);
+  const handlePickChange = (day, index, value) => {
+    if (day === "friday") {
+      const updatedPicks = [...fridayPicks];
+      updatedPicks[index] = value;
+      setFridayPicks(updatedPicks);
+    } else if (day === "saturday") {
+      const updatedPicks = [...saturdayPicks];
+      updatedPicks[index] = value;
+      setSaturdayPicks(updatedPicks);
+    } else if (day === "sunday") {
+      const updatedPicks = [...sundayPicks];
+      updatedPicks[index] = value;
+      setSundayPicks(updatedPicks);
     }
   };
 
@@ -21,9 +28,9 @@ const PlayerForm = ({ schedule = { friday: [], saturday: [], sunday: [] } }) => 
     e.preventDefault();
     const data = {
       name: selectedPlayer,
-      friday: fridayPicks,
-      saturday: saturdayPicks,
-      sunday: sundayPicks,
+      friday: fridayPicks.join(', '), // Send as a comma-separated string or adjust as needed
+      saturday: saturdayPicks.join(', '),
+      sunday: sundayPicks.join(', ',
     };
 
     console.log('Data to be sent:', data); // Log the data being sent
@@ -61,7 +68,7 @@ const PlayerForm = ({ schedule = { friday: [], saturday: [], sunday: [] } }) => 
           >
             <option value="">Choose Player</option>
             <option value="Joshua">Joshua</option>
-            {/* Add more player options here if needed */}
+            {/* Add more player options if necessary */}
           </select>
         </div>
 
@@ -72,7 +79,7 @@ const PlayerForm = ({ schedule = { friday: [], saturday: [], sunday: [] } }) => 
               <div key={index} className="game-item">
                 <label className="game-label">{game.game}</label>
                 <select
-                  onChange={(e) => handlePickChange(day, e.target.value)}
+                  onChange={(e) => handlePickChange(day, index, e.target.value)}
                   className="game-select"
                 >
                   <option value="">Select Winner</option>

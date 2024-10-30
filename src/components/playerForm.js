@@ -89,11 +89,11 @@ const PlayerForm = () => {
           >
             <option value="">Choose Player</option>
             <option value="Joshua">Joshua</option>
-            <option value="John Crocker">Joshua</option>
-            <option value="John Loder">Joshua</option>
-            <option value="Andrew">Joshua</option>
-            <option value="Wrinkles">Joshua</option>
-            <option value="Bunsey">Joshua</option>
+            <option value="John Crocker">John Crocker</option>
+            <option value="John Loder">John Loder</option>
+            <option value="Andrew">Andrew</option>
+            <option value="Wrinkles">Wrinkles</option>
+            <option value="Bunsey">Bunsey</option>
           </select>
         </div>
 

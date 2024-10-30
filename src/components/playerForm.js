@@ -29,14 +29,29 @@ function PlayerForm({ onSavePicks }) {
     }
     
     const dataToSubmit = { name: selectedPlayer, ...playerPicks };
+
     onSavePicks(dataToSubmit);
 
-    alert("Picks saved successfully!");
+    fetch("/api/savePicks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dataToSubmit),
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Request failed: ${errorText}`);
+        }
+        return response.json();
+      })
+      .then((data) => alert(data.message))
+      .catch((error) => console.error("Error saving picks:", error));
   };
 
   return (
     <div className="player-form">
       <h2 className="form-title">Player Picks</h2>
+
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label className="form-label">Select Player:</label>

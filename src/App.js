@@ -7,16 +7,17 @@ function App() {
   const [expandedRows, setExpandedRows] = useState({});
 
   useEffect(() => {
-    fetch("/api/getPicks")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => setPlayersData(data))
-      .catch((error) => console.error("Error loading picks from database:", error));
+  fetch("/api/handler")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => setPlayersData(data))
+    .catch((error) => console.error("Error loading JSON:", error));
   }, []);
+
 
   const onSavePicks = (newPicks) => {
     const existingPlayerIndex = playersData.findIndex(player => player.name === newPicks.name);

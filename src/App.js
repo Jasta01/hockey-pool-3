@@ -7,16 +7,19 @@ function App() {
   const [expandedRows, setExpandedRows] = useState({});
 
   useEffect(() => {
-  fetch("/api/handler")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => setPlayersData(data))
-    .catch((error) => console.error("Error loading JSON:", error));
+    fetch("/api/handler")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setPlayersData(data);
+      })
+      .catch((error) => console.error("Error loading JSON:", error));
   }, []);
+  
 
 
   const onSavePicks = (newPicks) => {
@@ -38,9 +41,13 @@ function App() {
   };
 
   const leaderboard = playersData.map((player) => {
-    const gamesPlayed = player.fridayPicks.length + player.saturdayPicks.length + player.sundayPicks.length;
-    const timesWon = 0;
+    const gamesPlayed = 
+      (player.fridayPicks?.length || 0) + 
+      (player.saturdayPicks?.length || 0) + 
+      (player.sundayPicks?.length || 0);
+    const timesWon = 0; // Update this if you have a way to calculate wins
     const winPercentage = gamesPlayed > 0 ? ((timesWon / gamesPlayed) * 100).toFixed(2) : 0;
+  
     return {
       name: player.name,
       gamesPlayed,
@@ -48,6 +55,7 @@ function App() {
       winPercentage,
     };
   });
+  
 
   const toggleRow = (index) => {
     setExpandedRows((prev) => ({

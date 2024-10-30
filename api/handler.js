@@ -32,7 +32,7 @@ export default async function handler(req, res) {
   try {
     // Log the request body for debugging
     const body = req.body;
-    console.log("Request body:", body); 
+    console.log("Request body:", body);
 
     if (req.method === 'POST') {
       // Save player picks to Postgres
@@ -59,9 +59,21 @@ export default async function handler(req, res) {
       res.status(200).json({ message: 'Picks saved successfully!' });
 
     } else if (req.method === 'GET') {
-      // Retrieve player picks from Postgres
-      const result = await pool.query('SELECT * FROM player_picks');
-      res.status(200).json(result.rows);
+      // Retrieve and format player picks from Postgres
+      const result = await pool.query(`
+        SELECT name, friday_picks, saturday_picks, sunday_picks 
+        FROM player_picks
+      `);
+
+      // Format the data for the frontend
+      const playersData = result.rows.map((row) => ({
+        name: row.name,
+        fridayPicks: row.friday_picks || [],
+        saturdayPicks: row.saturday_picks || [],
+        sundayPicks: row.sunday_picks || []
+      }));
+
+      res.status(200).json(playersData);
 
     } else {
       res.setHeader('Allow', ['POST', 'GET']);

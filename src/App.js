@@ -39,10 +39,7 @@ function App() {
   };
 
   const leaderboard = playersData.map((player) => {
-    const gamesPlayed =
-      (player.fridayPicks?.length || 0) +
-      (player.saturdayPicks?.length || 0) +
-      (player.sundayPicks?.length || 0);
+    const gamesPlayed = 0;
     const timesWon = 0; // Update this if you have a way to calculate wins
     const winPercentage = gamesPlayed > 0 ? ((timesWon / gamesPlayed) * 100).toFixed(2) : 0;
 

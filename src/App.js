@@ -15,7 +15,6 @@ function App() {
         return response.json();
       })
       .then((data) => {
-        console.log("Fetched Players Data:", data); // Debugging log
         setPlayersData(data);
       })
       .catch((error) => console.error("Error loading JSON:", error));
@@ -25,9 +24,9 @@ function App() {
     const existingPlayerIndex = playersData.findIndex(player => player.name === newPicks.name);
     const updatedPicks = {
       name: newPicks.name,
-      fridayPicks: newPicks.fridayPicks,
-      saturdayPicks: newPicks.saturdayPicks,
-      sundayPicks: newPicks.sundayPicks,
+      fridayPicks: newPicks.friday,
+      saturdayPicks: newPicks.saturday,
+      sundayPicks: newPicks.sunday
     };
 
     if (existingPlayerIndex !== -1) {
@@ -40,7 +39,10 @@ function App() {
   };
 
   const leaderboard = playersData.map((player) => {
-    const gamesPlayed = 0;
+    const gamesPlayed =
+      (player.fridayPicks?.length || 0) +
+      (player.saturdayPicks?.length || 0) +
+      (player.sundayPicks?.length || 0);
     const timesWon = 0; // Update this if you have a way to calculate wins
     const winPercentage = gamesPlayed > 0 ? ((timesWon / gamesPlayed) * 100).toFixed(2) : 0;
 
@@ -57,6 +59,16 @@ function App() {
       ...prev,
       [index]: !prev[index],
     }));
+  };
+
+  const renderPick = (pick, chosenTeam) => {
+    const [teamA, teamB] = pick.split(" vs ");
+    return (
+      <div>
+        <span>{teamA} vs {teamB}: </span>
+        <span className="highlighted">{chosenTeam}</span>
+      </div>
+    );
   };
 
   return (
@@ -82,33 +94,30 @@ function App() {
                   <td className="player-name">{player.name}</td>
                   <td className="picks-column">
                     {player.fridayPicks?.length > 0 ? (
-                      player.fridayPicks.map((pick, i) => (
-                        <div key={i} className="game-pick">
-                          <strong className="picked-team">{pick}</strong>
-                        </div>
-                      ))
+                      renderPick(
+                        player.fridayPicks[0].game,
+                        player.fridayPicks[0].pick
+                      )
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
                     {player.saturdayPicks?.length > 0 ? (
-                      player.saturdayPicks.map((pick, i) => (
-                        <div key={i} className="game-pick">
-                          <strong className="picked-team">{pick}</strong>
-                        </div>
-                      ))
+                      renderPick(
+                        player.saturdayPicks[0].game,
+                        player.saturdayPicks[0].pick
+                      )
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
                     {player.sundayPicks?.length > 0 ? (
-                      player.sundayPicks.map((pick, i) => (
-                        <div key={i} className="game-pick">
-                          <strong className="picked-team">{pick}</strong>
-                        </div>
-                      ))
+                      renderPick(
+                        player.sundayPicks[0].game,
+                        player.sundayPicks[0].pick
+                      )
                     ) : (
                       <div>No picks</div>
                     )}
@@ -121,8 +130,19 @@ function App() {
                 </tr>
                 {expandedRows[index] && (
                   <tr>
-                    <td colSpan="5" style={{ background: "#f1f1f1" }}>
-                      <p>Additional Details for {player.name}</p>
+                    <td colSpan="5">
+                      <div>
+                        <p>Additional Picks:</p>
+                        {player.fridayPicks.slice(1).map((pick, i) => (
+                          <div key={`friday-${i}`}>{renderPick(pick.game, pick.pick)}</div>
+                        ))}
+                        {player.saturdayPicks.slice(1).map((pick, i) => (
+                          <div key={`saturday-${i}`}>{renderPick(pick.game, pick.pick)}</div>
+                        ))}
+                        {player.sundayPicks.slice(1).map((pick, i) => (
+                          <div key={`sunday-${i}`}>{renderPick(pick.game, pick.pick)}</div>
+                        ))}
+                      </div>
                     </td>
                   </tr>
                 )}

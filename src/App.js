@@ -25,9 +25,9 @@ function App() {
     const existingPlayerIndex = playersData.findIndex(player => player.name === newPicks.name);
     const updatedPicks = {
       name: newPicks.name,
-      fridayPicks: newPicks.friday,
-      saturdayPicks: newPicks.saturday,
-      sundayPicks: newPicks.sunday
+      fridayPicks: newPicks.fridayPicks,
+      saturdayPicks: newPicks.saturdayPicks,
+      sundayPicks: newPicks.sundayPicks,
     };
 
     if (existingPlayerIndex !== -1) {
@@ -40,10 +40,7 @@ function App() {
   };
 
   const leaderboard = playersData.map((player) => {
-    const gamesPlayed =
-      (player.fridayPicks?.length || 0) +
-      (player.saturdayPicks?.length || 0) +
-      (player.sundayPicks?.length || 0);
+    const gamesPlayed = 0;
     const timesWon = 0; // Update this if you have a way to calculate wins
     const winPercentage = gamesPlayed > 0 ? ((timesWon / gamesPlayed) * 100).toFixed(2) : 0;
 

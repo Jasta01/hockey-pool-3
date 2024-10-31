@@ -1,80 +1,128 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./playerForm.css";
 
-// Define the schedule as an array
+// Updated schedule with the new games
 const schedule = [
   {
     day: "friday",
     games: [
-      { game: "Sharks vs Kings" },
-      { game: "Senators vs Golden Knights" }
+      { game: "Blackhawks vs Sharks" },
+      { game: "Panthers vs Stars" },
+      { game: "Jets vs Blue Jackets" },
+      { game: "Senators vs Rangers" },
+      { game: "Islanders vs Sabres" },
+      { game: "Lightning vs Wild" },
+      { game: "Devils vs Flames" }
     ]
   },
   {
     day: "saturday",
     games: [
-      { game: "Red Wings vs Sabres" }
+      { game: "Stars vs Panthers" },
+      { game: "Bruins vs Flyers" },
+      { game: "Blackhawks vs Kings" },
+      { game: "Blue Jackets vs Capitals" },
+      { game: "Maple Leafs vs Blues" },
+      { game: "Kraken vs Senators" },
+      { game: "Canadians vs Penguins" },
+      { game: "Sabres vs Red Wings" },
+      { game: "Avalanche vs Predators" },
+      { game: "Utah HC vs Golden Knights" },
+      { game: "Canucks vs Sharks" }
     ]
   },
   {
     day: "sunday",
     games: [
-      { game: "Oilers vs Red Wings" }
+      { game: "Islanders vs Rangers" },
+      { game: "Lightning vs Jets" },
+      { game: "Capitals vs Hurricanes" },
+      { game: "Kraken vs Bruins" },
+      { game: "Maple Leafs vs Wild" },
+      { game: "Oilers vs Flames" },
+      { game: "Blackhawks vs Ducks" }
     ]
   }
 ];
 
-const PlayerForm = () => {
+const PlayerForm = ({ onSavePicks }) => {
   const [selectedPlayer, setSelectedPlayer] = useState('');
   const [fridayPicks, setFridayPicks] = useState([]);
   const [saturdayPicks, setSaturdayPicks] = useState([]);
   const [sundayPicks, setSundayPicks] = useState([]);
+  const [playerList, setPlayerList] = useState([]);
+  const [playersData, setPlayersData] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/handler')
+      .then(response => response.json())
+      .then(data => {
+        setPlayersData(data);
+        const activePlayers = data.map(player => player.name);
+        setPlayerList([
+          "Joshua",
+          "John Crocker",
+          "John Loder",
+          "Andrew",
+          "Wrinkles",
+          "Bunsey",
+          "Dean/JD",
+          "Adam",
+          "Sadie",
+          "Landon",
+          "Clifford",
+          "Dave Rawding"
+        ].filter(player => !activePlayers.includes(player)));
+      })
+      .catch(error => console.error("Error loading players:", error));
+  }, []);
 
   const handlePickChange = (day, index, value) => {
-    if (day === "friday") {
-      const updatedPicks = [...fridayPicks];
+    const updatePicks = (dayPicks, setDayPicks) => {
+      const updatedPicks = [...dayPicks];
       updatedPicks[index] = value;
-      setFridayPicks(updatedPicks);
-    } else if (day === "saturday") {
-      const updatedPicks = [...saturdayPicks];
-      updatedPicks[index] = value;
-      setSaturdayPicks(updatedPicks);
-    } else if (day === "sunday") {
-      const updatedPicks = [...sundayPicks];
-      updatedPicks[index] = value;
-      setSundayPicks(updatedPicks);
-    }
+      setDayPicks(updatedPicks);
+    };
+    if (day === "friday") updatePicks(fridayPicks, setFridayPicks);
+    if (day === "saturday") updatePicks(saturdayPicks, setSaturdayPicks);
+    if (day === "sunday") updatePicks(sundayPicks, setSundayPicks);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!selectedPlayer || fridayPicks.length !== schedule[0].games.length ||
+        saturdayPicks.length !== schedule[1].games.length || sundayPicks.length !== schedule[2].games.length) {
+      alert("Please complete all picks and select a player name.");
+      return;
+    }
+
     const data = {
       name: selectedPlayer,
-      friday: fridayPicks,     // Keep as array
-      saturday: saturdayPicks, // Keep as array
-      sunday: sundayPicks      // Keep as array
+      friday: fridayPicks,
+      saturday: saturdayPicks,
+      sunday: sundayPicks
     };
-  
+
     try {
       const response = await fetch('/api/handler', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data), // Send data as JSON
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
-  
-      if (!response.ok) {
-        throw new Error(`Error saving picks: ${response.statusText}`);
-      }
-  
+
+      if (!response.ok) throw new Error(`Error saving picks: ${response.statusText}`);
+
       const result = await response.json();
       console.log(result.message);
+      onSavePicks(data); // Updates parent component
+      setSelectedPlayer('');
+      setFridayPicks([]);
+      setSaturdayPicks([]);
+      setSundayPicks([]);
     } catch (error) {
       console.error('Error saving picks:', error);
     }
   };
-  
 
   return (
     <div className="player-form">
@@ -88,12 +136,9 @@ const PlayerForm = () => {
             className="player-select"
           >
             <option value="">Choose Player</option>
-            <option value="Joshua">Joshua</option>
-            <option value="John Crocker">John Crocker</option>
-            <option value="John Loder">John Loder</option>
-            <option value="Andrew">Andrew</option>
-            <option value="Wrinkles">Wrinkles</option>
-            <option value="Bunsey">Bunsey</option>
+            {playerList.map(player => (
+              <option key={player} value={player}>{player}</option>
+            ))}
           </select>
         </div>
 
@@ -105,6 +150,7 @@ const PlayerForm = () => {
                 <label className="game-label">{game.game}</label>
                 <select
                   onChange={(e) => handlePickChange(day, index, e.target.value)}
+                  value={day === "friday" ? fridayPicks[index] : day === "saturday" ? saturdayPicks[index] : sundayPicks[index] || ""}
                   className="game-select"
                 >
                   <option value="">Select Winner</option>

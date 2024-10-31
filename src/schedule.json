@@ -1,13 +1,34 @@
 {
     "friday": [
-      { "game": "Sharks vs Kings" },
-      { "game": "Senators vs Golden Knights" }
+      { "game": "Blackhawks vs Sharks" },
+      { "game": "Panthers vs Stars" },
+      { "game": "Jets vs Blue Jackets" },
+      { "game": "Senators vs Rangers" },
+      { "game": "Islanders vs Sabres" },
+      { "game": "Lightning vs Wild" },
+      { "game": "Devils vs Flames" }
     ],
     "saturday": [
-      { "game": "Red Wings vs Sabres" }
+      { "game": "Stars vs Panthers" },
+      { "game": "Bruins vs Flyers" },
+      { "game": "Blackhawks vs Kings" },
+      { "game": "Blue Jackets vs Capitals" },
+      { "game": "Maple Leafs vs Blues" },
+      { "game": "Kraken vs Senators" },
+      { "game": "Canadians vs Penguins" },
+      { "game": "Sabres vs Red Wings" },
+      { "game": "Avalanche vs Predators" },
+      { "game": "Utah HC vs Golden Knights" },
+      { "game": "Canucks vs Sharks" }
     ],
     "sunday": [
-      { "game": "Oilers vs Red Wings" }
+      { "game": "Islanders vs Rangers" },
+      { "game": "Lightning vs Jets" },
+      { "game": "Capitals vs Hurricanes" },
+      { "game": "Kraken vs Bruins" },
+      { "game": "Maple Leafs vs Wild" },
+      { "game": "Oilers vs Flames" },
+      { "game": "Blackhawks vs Ducks" }
     ]
   }
   

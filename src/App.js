@@ -125,16 +125,32 @@ function App() {
                 </tr>
                 {expandedRows[index] && (
                   <React.Fragment>
-                    {/* Expanded Row with Picks */}
-                    {["fridayPicks", "saturdayPicks", "sundayPicks"].map((day, dayIndex) => (
-                      player[day]?.map((pick, pickIndex) => (
-                        <tr key={`${day}-${pickIndex}`} className="player-row">
-                          <td></td>
-                          <td className="picks-column" colSpan={dayIndex === 0 ? 4 : 0}>
-                            {renderPick(pick)}
-                          </td>
-                        </tr>
-                      ))
+                    {/* Expanded Row with Picks for Friday */}
+                    {player.fridayPicks?.slice(1).map((pick, pickIndex) => (
+                      <tr key={`friday-${pickIndex}`} className="player-row">
+                        <td></td>
+                        <td className="picks-column" colSpan="3">
+                          {renderPick(pick)}
+                        </td>
+                      </tr>
+                    ))}
+                    {/* Expanded Row with Picks for Saturday */}
+                    {player.saturdayPicks?.slice(1).map((pick, pickIndex) => (
+                      <tr key={`saturday-${pickIndex}`} className="player-row">
+                        <td></td>
+                        <td className="picks-column" colSpan="3">
+                          {renderPick(pick)}
+                        </td>
+                      </tr>
+                    ))}
+                    {/* Expanded Row with Picks for Sunday */}
+                    {player.sundayPicks?.slice(1).map((pick, pickIndex) => (
+                      <tr key={`sunday-${pickIndex}`} className="player-row">
+                        <td></td>
+                        <td className="picks-column" colSpan="3">
+                          {renderPick(pick)}
+                        </td>
+                      </tr>
                     ))}
                   </React.Fragment>
                 )}

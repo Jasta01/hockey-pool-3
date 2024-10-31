@@ -68,9 +68,10 @@ function App() {
 
     const [teamA, teamB] = pick.game.split(" vs ");
     return (
-      <span className="game-pick">
-        {teamA} vs {teamB}: <span className="picked-team">{pick.pick}</span>
-      </span>
+      <div>
+        <span>{teamA} vs {teamB}: </span>
+        <span className="picked-team">{pick.pick}</span>
+      </div>
     );
   };
 
@@ -96,13 +97,25 @@ function App() {
                 <tr className="player-row">
                   <td className="player-name">{player.name}</td>
                   <td className="picks-column">
-                    {player.fridayPicks?.[0] ? renderPick(player.fridayPicks[0]) : <div>No picks</div>}
+                    {player.fridayPicks?.[0] ? (
+                      renderPick(player.fridayPicks[0])
+                    ) : (
+                      <div>No picks</div>
+                    )}
                   </td>
                   <td className="picks-column">
-                    {player.saturdayPicks?.[0] ? renderPick(player.saturdayPicks[0]) : <div>No picks</div>}
+                    {player.saturdayPicks?.[0] ? (
+                      renderPick(player.saturdayPicks[0])
+                    ) : (
+                      <div>No picks</div>
+                    )}
                   </td>
                   <td className="picks-column">
-                    {player.sundayPicks?.[0] ? renderPick(player.sundayPicks[0]) : <div>No picks</div>}
+                    {player.sundayPicks?.[0] ? (
+                      renderPick(player.sundayPicks[0])
+                    ) : (
+                      <div>No picks</div>
+                    )}
                   </td>
                   <td>
                     <button className="expand-button" onClick={() => toggleRow(index)}>
@@ -112,21 +125,33 @@ function App() {
                 </tr>
                 {expandedRows[index] && (
                   <>
-                    {/* Expanded Row for Additional Picks */}
-                    <tr className="expanded-row">
-                      <td></td>
-                      <td colSpan={3} className="picks-column expanded-picks">
-                        {player.fridayPicks?.slice(1).map((pick, pickIndex) => (
-                          <div key={`friday-${pickIndex}`}>{renderPick(pick)}</div>
-                        ))}
-                        {player.saturdayPicks?.slice(1).map((pick, pickIndex) => (
-                          <div key={`saturday-${pickIndex}`}>{renderPick(pick)}</div>
-                        ))}
-                        {player.sundayPicks?.slice(1).map((pick, pickIndex) => (
-                          <div key={`sunday-${pickIndex}`}>{renderPick(pick)}</div>
-                        ))}
-                      </td>
-                    </tr>
+                    {/* Expanded Row with Picks for Friday */}
+                    {player.fridayPicks?.slice(1).map((pick, pickIndex) => (
+                      <tr key={`friday-${pickIndex}`} className="player-row">
+                        <td></td>
+                        <td className="picks-column">{renderPick(pick)}</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    ))}
+                    {/* Expanded Row with Picks for Saturday */}
+                    {player.saturdayPicks?.slice(1).map((pick, pickIndex) => (
+                      <tr key={`saturday-${pickIndex}`} className="player-row">
+                        <td></td>
+                        <td></td>
+                        <td className="picks-column">{renderPick(pick)}</td>
+                        <td></td>
+                      </tr>
+                    ))}
+                    {/* Expanded Row with Picks for Sunday */}
+                    {player.sundayPicks?.slice(1).map((pick, pickIndex) => (
+                      <tr key={`sunday-${pickIndex}`} className="player-row">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td className="picks-column">{renderPick(pick)}</td>
+                      </tr>
+                    ))}
                   </>
                 )}
                 <tr className="separator-row">

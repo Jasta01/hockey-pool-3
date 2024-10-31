@@ -80,13 +80,14 @@ const PlayerForm = ({ onSavePicks }) => {
   const handlePickChange = (day, index, value) => {
     const updatePicks = (dayPicks, setDayPicks) => {
       const updatedPicks = [...dayPicks];
-      updatedPicks[index] = value;
+      updatedPicks[index] = { game: schedule.find(d => d.day === day).games[index].game, pick: value }; // Store the game and pick
       setDayPicks(updatedPicks);
     };
     if (day === "friday") updatePicks(fridayPicks, setFridayPicks);
     if (day === "saturday") updatePicks(saturdayPicks, setSaturdayPicks);
     if (day === "sunday") updatePicks(sundayPicks, setSundayPicks);
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

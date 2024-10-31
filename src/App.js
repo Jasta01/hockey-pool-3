@@ -61,12 +61,14 @@ function App() {
     }));
   };
 
-  const renderPick = (pick, chosenTeam) => {
-    const [teamA, teamB] = pick.split(" vs ");
+  const renderPick = (pick) => {
+    if (!pick) return null; // Check if pick is defined
+
+    const [teamA, teamB] = pick.game.split(" vs ");
     return (
       <div>
         <span>{teamA} vs {teamB}: </span>
-        <span className="highlighted">{chosenTeam}</span>
+        <span className="highlighted">{pick.pick}</span>
       </div>
     );
   };
@@ -94,30 +96,21 @@ function App() {
                   <td className="player-name">{player.name}</td>
                   <td className="picks-column">
                     {player.fridayPicks?.length > 0 ? (
-                      renderPick(
-                        player.fridayPicks[0].game,
-                        player.fridayPicks[0].pick
-                      )
+                      renderPick(player.fridayPicks[0]) // Pass the entire pick object
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
                     {player.saturdayPicks?.length > 0 ? (
-                      renderPick(
-                        player.saturdayPicks[0].game,
-                        player.saturdayPicks[0].pick
-                      )
+                      renderPick(player.saturdayPicks[0]) // Pass the entire pick object
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
                     {player.sundayPicks?.length > 0 ? (
-                      renderPick(
-                        player.sundayPicks[0].game,
-                        player.sundayPicks[0].pick
-                      )
+                      renderPick(player.sundayPicks[0]) // Pass the entire pick object
                     ) : (
                       <div>No picks</div>
                     )}
@@ -134,13 +127,13 @@ function App() {
                       <div>
                         <p>Additional Picks:</p>
                         {player.fridayPicks.slice(1).map((pick, i) => (
-                          <div key={`friday-${i}`}>{renderPick(pick.game, pick.pick)}</div>
+                          <div key={`friday-${i}`}>{renderPick(pick)}</div>
                         ))}
                         {player.saturdayPicks.slice(1).map((pick, i) => (
-                          <div key={`saturday-${i}`}>{renderPick(pick.game, pick.pick)}</div>
+                          <div key={`saturday-${i}`}>{renderPick(pick)}</div>
                         ))}
                         {player.sundayPicks.slice(1).map((pick, i) => (
-                          <div key={`sunday-${i}`}>{renderPick(pick.game, pick.pick)}</div>
+                          <div key={`sunday-${i}`}>{renderPick(pick)}</div>
                         ))}
                       </div>
                     </td>

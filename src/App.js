@@ -124,14 +124,12 @@ function App() {
                   </td>
                 </tr>
                 {expandedRows[index] && (
-                  <React.Fragment>
+                  <>
                     {/* Expanded Row with Picks for Friday */}
                     {player.fridayPicks?.slice(1).map((pick, pickIndex) => (
                       <tr key={`friday-${pickIndex}`} className="player-row">
                         <td></td>
-                        <td className="picks-column">
-                          {renderPick(pick)}
-                        </td>
+                        <td className="picks-column">{renderPick(pick)}</td>
                         <td></td>
                         <td></td>
                       </tr>
@@ -141,9 +139,7 @@ function App() {
                       <tr key={`saturday-${pickIndex}`} className="player-row">
                         <td></td>
                         <td></td>
-                        <td className="picks-column">
-                          {renderPick(pick)}
-                        </td>
+                        <td className="picks-column">{renderPick(pick)}</td>
                         <td></td>
                       </tr>
                     ))}
@@ -153,12 +149,10 @@ function App() {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td className="picks-column">
-                          {renderPick(pick)}
-                        </td>
+                        <td className="picks-column">{renderPick(pick)}</td>
                       </tr>
                     ))}
-                  </React.Fragment>
+                  </>
                 )}
                 <tr className="separator-row">
                   <td colSpan="5" className="blue-bar"></td>

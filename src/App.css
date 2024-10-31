@@ -180,4 +180,15 @@ td {
   .leaderboard-title {
     font-size: 20px;
   }
+
+  .picks-column {
+    background-color: #eef5ff; /* Retain your background styling */
+    padding: 10px; /* Adjust as necessary */
+  }
+  
+  /* Additional styles to ensure proper alignment */
+  .player-row {
+    vertical-align: top; /* Align content to the top of the cells */
+  }
+  
 }

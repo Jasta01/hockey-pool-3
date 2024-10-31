@@ -129,25 +129,31 @@ function App() {
                     {player.fridayPicks?.slice(1).map((pick, pickIndex) => (
                       <tr key={`friday-${pickIndex}`} className="player-row">
                         <td></td>
-                        <td className="picks-column" colSpan="3">
+                        <td className="picks-column">
                           {renderPick(pick)}
                         </td>
+                        <td></td>
+                        <td></td>
                       </tr>
                     ))}
                     {/* Expanded Row with Picks for Saturday */}
                     {player.saturdayPicks?.slice(1).map((pick, pickIndex) => (
                       <tr key={`saturday-${pickIndex}`} className="player-row">
                         <td></td>
-                        <td className="picks-column" colSpan="3">
+                        <td></td>
+                        <td className="picks-column">
                           {renderPick(pick)}
                         </td>
+                        <td></td>
                       </tr>
                     ))}
                     {/* Expanded Row with Picks for Sunday */}
                     {player.sundayPicks?.slice(1).map((pick, pickIndex) => (
                       <tr key={`sunday-${pickIndex}`} className="player-row">
                         <td></td>
-                        <td className="picks-column" colSpan="3">
+                        <td></td>
+                        <td></td>
+                        <td className="picks-column">
                           {renderPick(pick)}
                         </td>
                       </tr>

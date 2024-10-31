@@ -87,7 +87,6 @@ const PlayerForm = ({ onSavePicks }) => {
     if (day === "saturday") updatePicks(saturdayPicks, setSaturdayPicks);
     if (day === "sunday") updatePicks(sundayPicks, setSundayPicks);
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,6 +102,8 @@ const PlayerForm = ({ onSavePicks }) => {
       saturday: saturdayPicks,
       sunday: sundayPicks
     };
+
+    console.log("Picks being saved:", JSON.stringify(data, null, 2)); // Log the picks being saved in a readable format
 
     try {
       const response = await fetch('/api/handler', {
@@ -151,7 +152,7 @@ const PlayerForm = ({ onSavePicks }) => {
                 <label className="game-label">{game.game}</label>
                 <select
                   onChange={(e) => handlePickChange(day, index, e.target.value)}
-                  value={day === "friday" ? fridayPicks[index] : day === "saturday" ? saturdayPicks[index] : sundayPicks[index] || ""}
+                  value={day === "friday" ? fridayPicks[index]?.pick : day === "saturday" ? saturdayPicks[index]?.pick : sundayPicks[index]?.pick || ""}
                   className="game-select"
                 >
                   <option value="">Select Winner</option>

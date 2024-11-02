@@ -226,49 +226,51 @@ function App() {
                   </tr>
                 )}
                 <tr className="separator-row">
-                  <td colSpan="5" className="blue-bar"></td>
+                  <td colSpan="5"></td>
                 </tr>
               </React.Fragment>
             ))
           ) : (
             <tr>
               <td colSpan="5" style={{ textAlign: "center" }}>
-                No players found.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-
-      <h2 className="leaderboard-title">Leaderboard</h2>
-      <table className="leaderboard-table">
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th>Games Played</th>
-            <th>Wins</th>
-            <th>Win Percentage</th>
-          </tr>
-        </thead>
-        <tbody>
-          {leaderboard.length > 0 ? (
-            leaderboard.map((player, index) => (
-              <tr key={index}>
-                <td>{player.name}</td>
-                <td>{player.gamesPlayed}</td>
-                <td>{player.timesWon}</td>
-                <td>{player.winPercentage}%</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4" style={{ textAlign: "center" }}>
                 No data available.
               </td>
             </tr>
           )}
         </tbody>
       </table>
+
+      <div className="leaderboard">
+        <h2>Leaderboard</h2>
+        <table className="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Games Played</th>
+              <th>Wins</th>
+              <th>Win Percentage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {leaderboard.length > 0 ? (
+              leaderboard.map((player, index) => (
+                <tr key={index}>
+                  <td>{player.name}</td>
+                  <td>{player.gamesPlayed}</td>
+                  <td>{player.timesWon}</td>
+                  <td>{player.winPercentage}%</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" style={{ textAlign: "center" }}>
+                  No data available.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

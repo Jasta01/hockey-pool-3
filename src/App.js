@@ -121,15 +121,7 @@ function App() {
       timesWon,
       winPercentage,
     };
-  });
-
-  // Sort the leaderboard by win percentage (descending) and then by times won (descending)
-  leaderboard.sort((a, b) => {
-    if (b.winPercentage !== a.winPercentage) {
-      return b.winPercentage - a.winPercentage; // Sort by win percentage
-    }
-    return b.timesWon - a.timesWon; // Sort by wins if win percentage is the same
-  });
+  }).sort((a, b) => b.winPercentage - a.winPercentage || b.timesWon - a.timesWon); // Sort by win percentage, then by wins
 
   const toggleRow = (index) => {
     setExpandedRows((prev) => ({
@@ -143,6 +135,7 @@ function App() {
       <h1 className="app-title">Hockey Pool</h1>
       <PlayerForm onSavePicks={onSavePicks} />
 
+      {/* Player Picks Table */}
       <table className="picks-table">
         <thead>
           <tr>
@@ -150,7 +143,7 @@ function App() {
             <th>Friday Picks</th>
             <th>Saturday Picks</th>
             <th>Sunday Picks</th>
-            <th></th>
+            <th></th> {/* Column for expand button */}
           </tr>
         </thead>
         <tbody>
@@ -159,33 +152,53 @@ function App() {
               <React.Fragment key={index}>
                 <tr className="player-row">
                   <td className="player-name">{player.name}</td>
+
+                  {/* Friday Picks */}
                   <td className="picks-column">
-                    {player.fridayPicks && player.fridayPicks.length > 0 ? (
-                      <div className="picked-team">
-                        {player.fridayPicks[0].game}: {player.fridayPicks[0].pick} {/* Only show the first pick */}
+                    {player.fridayPicks.slice(0, 1).map((pickData, i) => (
+                      <div key={i} className="game-pick">
+                        {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
                       </div>
-                    ) : (
-                      <div>No picks</div>
-                    )}
+                    ))}
+                    {expandedRows[index] &&
+                      player.fridayPicks.slice(1).map((pickData, i) => (
+                        <div key={i} className="game-pick">
+                          {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                        </div>
+                      ))}
                   </td>
+
+                  {/* Saturday Picks */}
                   <td className="picks-column">
-                    {player.saturdayPicks && player.saturdayPicks.length > 0 ? (
-                      <div className="picked-team">
-                        {player.saturdayPicks[0].game}: {player.saturdayPicks[0].pick} {/* Only show the first pick */}
+                    {player.saturdayPicks.slice(0, 1).map((pickData, i) => (
+                      <div key={i} className="game-pick">
+                        {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
                       </div>
-                    ) : (
-                      <div>No picks</div>
-                    )}
+                    ))}
+                    {expandedRows[index] &&
+                      player.saturdayPicks.slice(1).map((pickData, i) => (
+                        <div key={i} className="game-pick">
+                          {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                        </div>
+                      ))}
                   </td>
+
+                  {/* Sunday Picks */}
                   <td className="picks-column">
-                    {player.sundayPicks && player.sundayPicks.length > 0 ? (
-                      <div className="picked-team">
-                        {player.sundayPicks[0].game}: {player.sundayPicks[0].pick} {/* Only show the first pick */}
+                    {player.sundayPicks.slice(0, 1).map((pickData, i) => (
+                      <div key={i} className="game-pick">
+                        {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
                       </div>
-                    ) : (
-                      <div>No picks</div>
-                    )}
+                    ))}
+                    {expandedRows[index] &&
+                      player.sundayPicks.slice(1).map((pickData, i) => (
+                        <div key={i} className="game-pick">
+                          {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                        </div>
+                      ))}
                   </td>
+
+                  {/* Expand/Collapse Button */}
                   <td>
                     <button
                       className="expand-button"
@@ -195,32 +208,8 @@ function App() {
                     </button>
                   </td>
                 </tr>
-                {expandedRows[index] && (
-                  <tr>
-                    <td colSpan="5" style={{ background: "#f1f1f1" }}>
-                      <div className="expanded-picks">
-                        <p><strong>Friday Picks:</strong></p>
-                        {player.fridayPicks.map((pick, i) => (
-                          <div key={i} className="game-pick">
-                            {pick.game}: {pick.pick}
-                          </div>
-                        ))}
-                        <p><strong>Saturday Picks:</strong></p>
-                        {player.saturdayPicks.map((pick, i) => (
-                          <div key={i} className="game-pick">
-                            {pick.game}: {pick.pick}
-                          </div>
-                        ))}
-                        <p><strong>Sunday Picks:</strong></p>
-                        {player.sundayPicks.map((pick, i) => (
-                          <div key={i} className="game-pick">
-                            {pick.game}: {pick.pick}
-                          </div>
-                        ))}
-                      </div>
-                    </td>
-                  </tr>
-                )}
+
+                {/* Blue bar separator */}
                 <tr className="separator-row">
                   <td colSpan="5" className="blue-bar"></td>
                 </tr>
@@ -242,24 +231,24 @@ function App() {
           <tr>
             <th>Player</th>
             <th>Games Played</th>
-            <th>Wins</th>
+            <th>Times Won</th>
             <th>Win Percentage</th>
           </tr>
         </thead>
         <tbody>
           {leaderboard.length > 0 ? (
-            leaderboard.map((entry, index) => (
+            leaderboard.map((player, index) => (
               <tr key={index}>
-                <td>{entry.name}</td>
-                <td>{entry.gamesPlayed}</td>
-                <td>{entry.timesWon}</td>
-                <td>{entry.winPercentage}%</td>
+                <td>{player.name}</td>
+                <td>{player.gamesPlayed}</td>
+                <td>{player.timesWon}</td>
+                <td>{player.winPercentage}%</td>
               </tr>
             ))
           ) : (
             <tr>
               <td colSpan="4" style={{ textAlign: "center" }}>
-                No leaderboard data available.
+                No players in leaderboard.
               </td>
             </tr>
           )}

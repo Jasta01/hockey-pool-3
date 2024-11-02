@@ -126,7 +126,7 @@ function App() {
   const toggleRow = (index) => {
     setExpandedRows((prev) => ({
       ...prev,
-      [index]: !prev[index],
+      [index]: !prev[index], // Toggle the expanded state
     }));
   };
 
@@ -240,8 +240,8 @@ function App() {
           <tr>
             <th>Player</th>
             <th>Games Played</th>
-            <th>Wins</th>
-            <th>Win %</th>
+            <th>Times Won</th>
+            <th>Win Percentage</th>
           </tr>
         </thead>
         <tbody>

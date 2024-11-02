@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import PlayerForm from "./components/playerForm.js";
 
-// Sample results for each game
 const gameResults = {
   friday: [
     { game: "Blackhawks vs Sharks", winner: "Sharks" },
@@ -37,77 +36,71 @@ const gameResults = {
   ],
 };
 
-
-// Function to calculate wins for each player
-const calculateWins = (playerPicks, gameResults) => {
-  let wins = 0;
-
-  ["friday", "saturday", "sunday"].forEach((day) => {
-    if (!playerPicks[`${day}Picks`] || !gameResults[day]) return;
-
-    playerPicks[`${day}Picks`].forEach((pick) => {
-      const gameResult = gameResults[day].find(
-        (result) => result.game === pick.game
-      );
-      if (gameResult && gameResult.winner && gameResult.winner === pick.pick) {
-        wins++;
-      }
-    });
-  });
-
-  return wins;
-};
-
-
 function App() {
   const [playersData, setPlayersData] = useState([]);
   const [expandedRows, setExpandedRows] = useState({});
 
   useEffect(() => {
     fetch("/api/handler")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setPlayersData(data);
-      })
+      .then((response) => response.json())
+      .then((data) => setPlayersData(data))
       .catch((error) => console.error("Error loading JSON:", error));
   }, []);
 
   const onSavePicks = (newPicks) => {
-    const existingPlayerIndex = playersData.findIndex(player => player.name === newPicks.name);
     const updatedPicks = {
       name: newPicks.name,
       fridayPicks: newPicks.friday,
       saturdayPicks: newPicks.saturday,
-      sundayPicks: newPicks.sunday
+      sundayPicks: newPicks.sunday,
     };
 
-    if (existingPlayerIndex !== -1) {
-      const updatedPlayers = [...playersData];
-      updatedPlayers[existingPlayerIndex] = { ...updatedPlayers[existingPlayerIndex], ...updatedPicks };
-      setPlayersData(updatedPlayers);
-    } else {
-      setPlayersData((prevPlayers) => [...prevPlayers, updatedPicks]);
-    }
+    setPlayersData((prevPlayers) => {
+      const playerIndex = prevPlayers.findIndex(
+        (player) => player.name === newPicks.name
+      );
+      if (playerIndex !== -1) {
+        const updatedPlayers = [...prevPlayers];
+        updatedPlayers[playerIndex] = {
+          ...updatedPlayers[playerIndex],
+          ...updatedPicks,
+        };
+        return updatedPlayers;
+      }
+      return [...prevPlayers, updatedPicks];
+    });
+  };
+
+  const calculateWins = (picks, results) => {
+    let wins = 0;
+    let gamesPlayed = 0;
+
+    picks.forEach((pick, index) => {
+      const gameResult = results[index];
+      if (gameResult?.winner) {
+        gamesPlayed++;
+        if (pick === gameResult.winner) {
+          wins++;
+        }
+      }
+    });
+
+    return { wins, gamesPlayed };
   };
 
   const leaderboard = playersData.map((player) => {
-    const gamesPlayed =
-      (player.fridayPicks?.length || 0) +
-      (player.saturdayPicks?.length || 0) +
-      (player.sundayPicks?.length || 0);
-    
-    const timesWon = calculateWins(player, gameResults);
-    const winPercentage = gamesPlayed > 0 ? ((timesWon / gamesPlayed) * 100).toFixed(2) : 0;
+    const fridayResults = calculateWins(player.fridayPicks || [], gameResults.friday);
+    const saturdayResults = calculateWins(player.saturdayPicks || [], gameResults.saturday);
+    const sundayResults = calculateWins(player.sundayPicks || [], gameResults.sunday);
+
+    const totalWins = fridayResults.wins + saturdayResults.wins + sundayResults.wins;
+    const totalGamesPlayed = fridayResults.gamesPlayed + saturdayResults.gamesPlayed + sundayResults.gamesPlayed;
+    const winPercentage = totalGamesPlayed > 0 ? ((totalWins / totalGamesPlayed) * 100).toFixed(2) : 0;
 
     return {
       name: player.name,
-      gamesPlayed,
-      timesWon,
+      gamesPlayed: totalGamesPlayed,
+      timesWon: totalWins,
       winPercentage,
     };
   });
@@ -141,28 +134,28 @@ function App() {
                 <tr className="player-row">
                   <td className="player-name">{player.name}</td>
                   <td className="picks-column">
-                    {player.fridayPicks?.length > 0 ? (
-                      <strong className="picked-team">
-                        {player.fridayPicks[0].game}: {player.fridayPicks[0].pick}
-                      </strong>
+                    {player.fridayPicks?.[0] ? (
+                      <div className="game-pick">
+                        {gameResults.friday[0]?.game}: <strong className="picked-team">{player.fridayPicks[0]}</strong>
+                      </div>
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
-                    {player.saturdayPicks?.length > 0 ? (
-                      <strong className="picked-team">
-                        {player.saturdayPicks[0].game}: {player.saturdayPicks[0].pick}
-                      </strong>
+                    {player.saturdayPicks?.[0] ? (
+                      <div className="game-pick">
+                        {gameResults.saturday[0]?.game}: <strong className="picked-team">{player.saturdayPicks[0]}</strong>
+                      </div>
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
-                    {player.sundayPicks?.length > 0 ? (
-                      <strong className="picked-team">
-                        {player.sundayPicks[0].game}: {player.sundayPicks[0].pick}
-                      </strong>
+                    {player.sundayPicks?.[0] ? (
+                      <div className="game-pick">
+                        {gameResults.sunday[0]?.game}: <strong className="picked-team">{player.sundayPicks[0]}</strong>
+                      </div>
                     ) : (
                       <div>No picks</div>
                     )}

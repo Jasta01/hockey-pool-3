@@ -152,28 +152,34 @@ function App() {
                 <tr className="player-row">
                   <td className="player-name">{player.name}</td>
                   <td className="picks-column">
-                    {player.fridayPicks?.length > 0 ? (
-                      <strong className="picked-team">
-                        {player.fridayPicks[0].game}: {player.fridayPicks[0].pick}
-                      </strong>
+                    {player.fridayPicks && player.fridayPicks.length > 0 ? (
+                      player.fridayPicks.map((pick, i) => (
+                        <div key={i} className="picked-team">
+                          {pick.game}: {pick.pick}
+                        </div>
+                      ))
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
-                    {player.saturdayPicks?.length > 0 ? (
-                      <strong className="picked-team">
-                        {player.saturdayPicks[0].game}: {player.saturdayPicks[0].pick}
-                      </strong>
+                    {player.saturdayPicks && player.saturdayPicks.length > 0 ? (
+                      player.saturdayPicks.map((pick, i) => (
+                        <div key={i} className="picked-team">
+                          {pick.game}: {pick.pick}
+                        </div>
+                      ))
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
-                    {player.sundayPicks?.length > 0 ? (
-                      <strong className="picked-team">
-                        {player.sundayPicks[0].game}: {player.sundayPicks[0].pick}
-                      </strong>
+                    {player.sundayPicks && player.sundayPicks.length > 0 ? (
+                      player.sundayPicks.map((pick, i) => (
+                        <div key={i} className="picked-team">
+                          {pick.game}: {pick.pick}
+                        </div>
+                      ))
                     ) : (
                       <div>No picks</div>
                     )}
@@ -239,16 +245,14 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {leaderboard
-            .sort((a, b) => b.winPercentage - a.winPercentage)
-            .map((player, index) => (
-              <tr key={index}>
-                <td>{player.name}</td>
-                <td>{player.gamesPlayed}</td>
-                <td>{player.timesWon}</td>
-                <td>{player.winPercentage}%</td>
-              </tr>
-            ))}
+          {leaderboard.map((player, index) => (
+            <tr key={index}>
+              <td>{player.name}</td>
+              <td>{player.gamesPlayed}</td>
+              <td>{player.timesWon}</td>
+              <td>{player.winPercentage}%</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

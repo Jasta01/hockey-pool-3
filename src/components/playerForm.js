@@ -173,7 +173,7 @@ const PlayerForm = ({ onSavePicks }) => {
           <button type="submit" className="submit-button">Save Picks</button>
         </form>
       ) : (
-        <p>No players available to submit picks.</p> // Message if no players are left
+        <p>All players have submitted picks.</p> // Message if no players are left
       )}
     </div>
   );

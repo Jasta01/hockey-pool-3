@@ -192,23 +192,35 @@ function App() {
                     <td colSpan="5" style={{ background: "#f1f1f1" }}>
                       <div className="expanded-picks">
                         <p><strong>Friday Picks:</strong></p>
-                        {player.fridayPicks.map((pick, i) => (
-                          <div key={i} className="game-pick">
-                            {pick.game}: {pick.pick}
-                          </div>
-                        ))}
+                        {player.fridayPicks && player.fridayPicks.length > 0 ? (
+                          player.fridayPicks.map((pick, i) => (
+                            <div key={i} className="game-pick">
+                              {pick.game}: {pick.pick}
+                            </div>
+                          ))
+                        ) : (
+                          <div>No picks</div>
+                        )}
                         <p><strong>Saturday Picks:</strong></p>
-                        {player.saturdayPicks.map((pick, i) => (
-                          <div key={i} className="game-pick">
-                            {pick.game}: {pick.pick}
-                          </div>
-                        ))}
+                        {player.saturdayPicks && player.saturdayPicks.length > 0 ? (
+                          player.saturdayPicks.map((pick, i) => (
+                            <div key={i} className="game-pick">
+                              {pick.game}: {pick.pick}
+                            </div>
+                          ))
+                        ) : (
+                          <div>No picks</div>
+                        )}
                         <p><strong>Sunday Picks:</strong></p>
-                        {player.sundayPicks.map((pick, i) => (
-                          <div key={i} className="game-pick">
-                            {pick.game}: {pick.pick}
-                          </div>
-                        ))}
+                        {player.sundayPicks && player.sundayPicks.length > 0 ? (
+                          player.sundayPicks.map((pick, i) => (
+                            <div key={i} className="game-pick">
+                              {pick.game}: {pick.pick}
+                            </div>
+                          ))
+                        ) : (
+                          <div>No picks</div>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -234,19 +246,27 @@ function App() {
           <tr>
             <th>Player</th>
             <th>Games Played</th>
-            <th>Times Won</th>
+            <th>Wins</th>
             <th>Win Percentage</th>
           </tr>
         </thead>
         <tbody>
-          {leaderboard.map((player, index) => (
-            <tr key={index}>
-              <td>{player.name}</td>
-              <td>{player.gamesPlayed}</td>
-              <td>{player.timesWon}</td>
-              <td>{player.winPercentage}%</td>
+          {leaderboard.length > 0 ? (
+            leaderboard.map((player, index) => (
+              <tr key={index}>
+                <td>{player.name}</td>
+                <td>{player.gamesPlayed}</td>
+                <td>{player.timesWon}</td>
+                <td>{player.winPercentage}%</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" style={{ textAlign: "center" }}>
+                No data available.
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

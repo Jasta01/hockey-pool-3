@@ -76,17 +76,22 @@ function App() {
   }, []);
 
   const onSavePicks = (newPicks) => {
-    const existingPlayerIndex = playersData.findIndex(player => player.name === newPicks.name);
+    const existingPlayerIndex = playersData.findIndex(
+      (player) => player.name === newPicks.name
+    );
     const updatedPicks = {
       name: newPicks.name,
       fridayPicks: newPicks.friday,
       saturdayPicks: newPicks.saturday,
-      sundayPicks: newPicks.sunday
+      sundayPicks: newPicks.sunday,
     };
 
     if (existingPlayerIndex !== -1) {
       const updatedPlayers = [...playersData];
-      updatedPlayers[existingPlayerIndex] = { ...updatedPlayers[existingPlayerIndex], ...updatedPicks };
+      updatedPlayers[existingPlayerIndex] = {
+        ...updatedPlayers[existingPlayerIndex],
+        ...updatedPicks,
+      };
       setPlayersData(updatedPlayers);
     } else {
       setPlayersData((prevPlayers) => [...prevPlayers, updatedPicks]);
@@ -97,7 +102,6 @@ function App() {
     const gamesPlayed = ["friday", "saturday", "sunday"].reduce((total, day) => {
       if (!player[`${day}Picks`] || !gameResults[day]) return total;
 
-      // Only count games where the winner is not null
       const dayGamesPlayed = player[`${day}Picks`].filter((pick) =>
         gameResults[day].some(
           (gameResult) => gameResult.game === pick.game && gameResult.winner !== null
@@ -108,7 +112,8 @@ function App() {
     }, 0);
 
     const timesWon = calculateWins(player, gameResults);
-    const winPercentage = gamesPlayed > 0 ? ((timesWon / gamesPlayed) * 100).toFixed(2) : 0;
+    const winPercentage =
+      gamesPlayed > 0 ? ((timesWon / gamesPlayed) * 100).toFixed(2) : 0;
 
     return {
       name: player.name,
@@ -174,7 +179,10 @@ function App() {
                     )}
                   </td>
                   <td>
-                    <button className="expand-button" onClick={() => toggleRow(index)}>
+                    <button
+                      className="expand-button"
+                      onClick={() => toggleRow(index)}
+                    >
                       {expandedRows[index] ? "Show Less" : "Show More"}
                     </button>
                   </td>
@@ -182,7 +190,26 @@ function App() {
                 {expandedRows[index] && (
                   <tr>
                     <td colSpan="5" style={{ background: "#f1f1f1" }}>
-                      <p>Additional Details for {player.name}</p>
+                      <div className="expanded-picks">
+                        <p><strong>Friday Picks:</strong></p>
+                        {player.fridayPicks.map((pick, i) => (
+                          <div key={i} className="game-pick">
+                            {pick.game}: {pick.pick}
+                          </div>
+                        ))}
+                        <p><strong>Saturday Picks:</strong></p>
+                        {player.saturdayPicks.map((pick, i) => (
+                          <div key={i} className="game-pick">
+                            {pick.game}: {pick.pick}
+                          </div>
+                        ))}
+                        <p><strong>Sunday Picks:</strong></p>
+                        {player.sundayPicks.map((pick, i) => (
+                          <div key={i} className="game-pick">
+                            {pick.game}: {pick.pick}
+                          </div>
+                        ))}
+                      </div>
                     </td>
                   </tr>
                 )}
@@ -193,7 +220,9 @@ function App() {
             ))
           ) : (
             <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>No players found.</td>
+              <td colSpan="5" style={{ textAlign: "center" }}>
+                No players found.
+              </td>
             </tr>
           )}
         </tbody>
@@ -214,7 +243,7 @@ function App() {
             .sort((a, b) => b.winPercentage - a.winPercentage)
             .map((player, index) => (
               <tr key={index}>
-                <td className="player-name">{player.name}</td>
+                <td>{player.name}</td>
                 <td>{player.gamesPlayed}</td>
                 <td>{player.timesWon}</td>
                 <td>{player.winPercentage}%</td>

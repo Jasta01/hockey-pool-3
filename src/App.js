@@ -123,6 +123,14 @@ function App() {
     };
   });
 
+  // Sort the leaderboard by win percentage (descending) and then by times won (descending)
+  leaderboard.sort((a, b) => {
+    if (b.winPercentage !== a.winPercentage) {
+      return b.winPercentage - a.winPercentage; // Sort by win percentage
+    }
+    return b.timesWon - a.timesWon; // Sort by wins if win percentage is the same
+  });
+
   const toggleRow = (index) => {
     setExpandedRows((prev) => ({
       ...prev,
@@ -192,85 +200,71 @@ function App() {
                     <td colSpan="5" style={{ background: "#f1f1f1" }}>
                       <div className="expanded-picks">
                         <p><strong>Friday Picks:</strong></p>
-                        {player.fridayPicks && player.fridayPicks.length > 0 ? (
-                          player.fridayPicks.map((pick, i) => (
-                            <div key={i} className="game-pick">
-                              {pick.game}: {pick.pick}
-                            </div>
-                          ))
-                        ) : (
-                          <div>No picks</div>
-                        )}
+                        {player.fridayPicks.map((pick, i) => (
+                          <div key={i} className="game-pick">
+                            {pick.game}: {pick.pick}
+                          </div>
+                        ))}
                         <p><strong>Saturday Picks:</strong></p>
-                        {player.saturdayPicks && player.saturdayPicks.length > 0 ? (
-                          player.saturdayPicks.map((pick, i) => (
-                            <div key={i} className="game-pick">
-                              {pick.game}: {pick.pick}
-                            </div>
-                          ))
-                        ) : (
-                          <div>No picks</div>
-                        )}
+                        {player.saturdayPicks.map((pick, i) => (
+                          <div key={i} className="game-pick">
+                            {pick.game}: {pick.pick}
+                          </div>
+                        ))}
                         <p><strong>Sunday Picks:</strong></p>
-                        {player.sundayPicks && player.sundayPicks.length > 0 ? (
-                          player.sundayPicks.map((pick, i) => (
-                            <div key={i} className="game-pick">
-                              {pick.game}: {pick.pick}
-                            </div>
-                          ))
-                        ) : (
-                          <div>No picks</div>
-                        )}
+                        {player.sundayPicks.map((pick, i) => (
+                          <div key={i} className="game-pick">
+                            {pick.game}: {pick.pick}
+                          </div>
+                        ))}
                       </div>
                     </td>
                   </tr>
                 )}
                 <tr className="separator-row">
-                  <td colSpan="5"></td>
+                  <td colSpan="5" className="blue-bar"></td>
                 </tr>
               </React.Fragment>
             ))
           ) : (
             <tr>
               <td colSpan="5" style={{ textAlign: "center" }}>
-                No data available.
+                No players found.
               </td>
             </tr>
           )}
         </tbody>
       </table>
 
-      <div className="leaderboard">
-        <h2>Leaderboard</h2>
-        <table className="leaderboard-table">
-          <thead>
-            <tr>
-              <th>Player</th>
-              <th>Games Played</th>
-              <th>Wins</th>
-              <th>Win Percentage</th>
-            </tr>
-          </thead>
-          <tbody>
-            {leaderboard.length > 0 ? (
-              leaderboard.map((player, index) => (
-                <tr key={index}>
-                  <td>{player.name}</td>
-                  <td>{player.gamesPlayed}</td>
-                  <td>{player.timesWon}</td>
-                  <td>{player.winPercentage}%</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4" style={{ textAlign: "center" }}>
-                  No data available.
-                </td>
+      <h2 className="leaderboard-title">Leaderboard</h2>
+      <table className="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Games Played</th>
+            <th>Wins</th>
+            <th>Win Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leaderboard.length > 0 ? (
+            leaderboard.map((entry, index) => (
+              <tr key={index}>
+                <td>{entry.name}</td>
+                <td>{entry.gamesPlayed}</td>
+                <td>{entry.timesWon}</td>
+                <td>{entry.winPercentage}%</td>
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" style={{ textAlign: "center" }}>
+                No leaderboard data available.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }

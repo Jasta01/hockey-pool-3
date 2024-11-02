@@ -130,47 +130,51 @@ const PlayerForm = ({ onSavePicks }) => {
   return (
     <div className="player-form">
       <h2 className="form-title">Player Picks</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className="form-label">Select Player:</label>
-          <select
-            onChange={(e) => setSelectedPlayer(e.target.value)}
-            value={selectedPlayer}
-            className="player-select"
-          >
-            <option value="">Choose Player</option>
-            {playerList.map(player => (
-              <option key={player} value={player}>{player}</option>
-            ))}
-          </select>
-        </div>
-
-        {schedule.map(({ day, games }) => (
-          <div key={day} className="day-section">
-            <h3 className="day-title">{day.charAt(0).toUpperCase() + day.slice(1)}'s Games</h3>
-            {games.map((game, index) => (
-              <div key={index} className="game-item">
-                <label className="game-label">{game.game}</label>
-                <select
-                  onChange={(e) => handlePickChange(day, index, e.target.value)}
-                  value={day === "friday" ? fridayPicks[index]?.pick : day === "saturday" ? saturdayPicks[index]?.pick : sundayPicks[index]?.pick || ""}
-                  className="game-select"
-                >
-                  <option value="">Select Winner</option>
-                  <option value={game.game.split(" vs ")[0]}>
-                    {game.game.split(" vs ")[0]}
-                  </option>
-                  <option value={game.game.split(" vs ")[1]}>
-                    {game.game.split(" vs ")[1]}
-                  </option>
-                </select>
-              </div>
-            ))}
+      {playerList.length > 0 ? ( // Check if there are players left
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Select Player:</label>
+            <select
+              onChange={(e) => setSelectedPlayer(e.target.value)}
+              value={selectedPlayer}
+              className="player-select"
+            >
+              <option value="">Choose Player</option>
+              {playerList.map(player => (
+                <option key={player} value={player}>{player}</option>
+              ))}
+            </select>
           </div>
-        ))}
 
-        <button type="submit" className="submit-button">Save Picks</button>
-      </form>
+          {schedule.map(({ day, games }) => (
+            <div key={day} className="day-section">
+              <h3 className="day-title">{day.charAt(0).toUpperCase() + day.slice(1)}'s Games</h3>
+              {games.map((game, index) => (
+                <div key={index} className="game-item">
+                  <label className="game-label">{game.game}</label>
+                  <select
+                    onChange={(e) => handlePickChange(day, index, e.target.value)}
+                    value={day === "friday" ? fridayPicks[index]?.pick : day === "saturday" ? saturdayPicks[index]?.pick : sundayPicks[index]?.pick || ""}
+                    className="game-select"
+                  >
+                    <option value="">Select Winner</option>
+                    <option value={game.game.split(" vs ")[0]}>
+                      {game.game.split(" vs ")[0]}
+                    </option>
+                    <option value={game.game.split(" vs ")[1]}>
+                      {game.game.split(" vs ")[1]}
+                    </option>
+                  </select>
+                </div>
+              ))}
+            </div>
+          ))}
+
+          <button type="submit" className="submit-button">Save Picks</button>
+        </form>
+      ) : (
+        <p>No players available to submit picks.</p> // Message if no players are left
+      )}
     </div>
   );
 };

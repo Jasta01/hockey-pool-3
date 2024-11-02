@@ -153,33 +153,27 @@ function App() {
                   <td className="player-name">{player.name}</td>
                   <td className="picks-column">
                     {player.fridayPicks && player.fridayPicks.length > 0 ? (
-                      player.fridayPicks.map((pick, i) => (
-                        <div key={i} className="picked-team">
-                          {pick.game}: {pick.pick}
-                        </div>
-                      ))
+                      <div className="picked-team">
+                        {player.fridayPicks[0].game}: {player.fridayPicks[0].pick} {/* Only show the first pick */}
+                      </div>
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
                     {player.saturdayPicks && player.saturdayPicks.length > 0 ? (
-                      player.saturdayPicks.map((pick, i) => (
-                        <div key={i} className="picked-team">
-                          {pick.game}: {pick.pick}
-                        </div>
-                      ))
+                      <div className="picked-team">
+                        {player.saturdayPicks[0].game}: {player.saturdayPicks[0].pick} {/* Only show the first pick */}
+                      </div>
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
                     {player.sundayPicks && player.sundayPicks.length > 0 ? (
-                      player.sundayPicks.map((pick, i) => (
-                        <div key={i} className="picked-team">
-                          {pick.game}: {pick.pick}
-                        </div>
-                      ))
+                      <div className="picked-team">
+                        {player.sundayPicks[0].game}: {player.sundayPicks[0].pick} {/* Only show the first pick */}
+                      </div>
                     ) : (
                       <div>No picks</div>
                     )}

@@ -2,6 +2,63 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import PlayerForm from "./components/playerForm.js";
 
+// Sample results for each game
+const gameResults = {
+  friday: [
+    { game: "Blackhawks vs Sharks", winner: "Sharks" },
+    { game: "Panthers vs Stars", winner: "Panthers" },
+    { game: "Jets vs Blue Jackets", winner: "Jets" },
+    { game: "Senators vs Rangers", winner: "Rangers" },
+    { game: "Islanders vs Sabres", winner: "Islanders" },
+    { game: "Lightning vs Wild", winner: "Wild" },
+    { game: "Devils vs Flames", winner: "Flames" },
+  ],
+  saturday: [
+    { game: "Stars vs Panthers", winner: null },
+    { game: "Bruins vs Flyers", winner: null },
+    { game: "Blackhawks vs Kings", winner: null },
+    { game: "Blue Jackets vs Capitals", winner: null },
+    { game: "Maple Leafs vs Blues", winner: null },
+    { game: "Kraken vs Senators", winner: null },
+    { game: "Canadians vs Penguins", winner: null },
+    { game: "Sabres vs Red Wings", winner: null },
+    { game: "Avalanche vs Predators", winner: null },
+    { game: "Utah HC vs Golden Knights", winner: null },
+    { game: "Canucks vs Sharks", winner: null },
+  ],
+  sunday: [
+    { game: "Islanders vs Rangers", winner: null },
+    { game: "Lightning vs Jets", winner: null },
+    { game: "Capitals vs Hurricanes", winner: null },
+    { game: "Kraken vs Bruins", winner: null },
+    { game: "Maple Leafs vs Wild", winner: null },
+    { game: "Oilers vs Flames", winner: null },
+    { game: "Blackhawks vs Ducks", winner: null },
+  ],
+};
+
+
+// Function to calculate wins for each player
+const calculateWins = (playerPicks, gameResults) => {
+  let wins = 0;
+
+  ["friday", "saturday", "sunday"].forEach((day) => {
+    if (!playerPicks[`${day}Picks`] || !gameResults[day]) return;
+
+    playerPicks[`${day}Picks`].forEach((pick) => {
+      const gameResult = gameResults[day].find(
+        (result) => result.game === pick.game
+      );
+      if (gameResult && gameResult.winner && gameResult.winner === pick.pick) {
+        wins++;
+      }
+    });
+  });
+
+  return wins;
+};
+
+
 function App() {
   const [playersData, setPlayersData] = useState([]);
   const [expandedRows, setExpandedRows] = useState({});
@@ -39,8 +96,12 @@ function App() {
   };
 
   const leaderboard = playersData.map((player) => {
-    const gamesPlayed = 0;
-    const timesWon = 0; // Update this if you have a way to calculate wins
+    const gamesPlayed =
+      (player.fridayPicks?.length || 0) +
+      (player.saturdayPicks?.length || 0) +
+      (player.sundayPicks?.length || 0);
+    
+    const timesWon = calculateWins(player, gameResults);
     const winPercentage = gamesPlayed > 0 ? ((timesWon / gamesPlayed) * 100).toFixed(2) : 0;
 
     return {
@@ -56,20 +117,6 @@ function App() {
       ...prev,
       [index]: !prev[index],
     }));
-  };
-
-  const renderPick = (pick) => {
-    if (!pick || !pick.game) {
-      return <div>No pick available</div>;
-    }
-
-    const [teamA, teamB] = pick.game.split(" vs ");
-    return (
-      <div>
-        <span>{teamA} vs {teamB}: </span>
-        <span className="picked-team">{pick.pick}</span>
-      </div>
-    );
   };
 
   return (
@@ -94,22 +141,28 @@ function App() {
                 <tr className="player-row">
                   <td className="player-name">{player.name}</td>
                   <td className="picks-column">
-                    {player.fridayPicks?.[0] ? (
-                      renderPick(player.fridayPicks[0])
+                    {player.fridayPicks?.length > 0 ? (
+                      <strong className="picked-team">
+                        {player.fridayPicks[0].game}: {player.fridayPicks[0].pick}
+                      </strong>
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
-                    {player.saturdayPicks?.[0] ? (
-                      renderPick(player.saturdayPicks[0])
+                    {player.saturdayPicks?.length > 0 ? (
+                      <strong className="picked-team">
+                        {player.saturdayPicks[0].game}: {player.saturdayPicks[0].pick}
+                      </strong>
                     ) : (
                       <div>No picks</div>
                     )}
                   </td>
                   <td className="picks-column">
-                    {player.sundayPicks?.[0] ? (
-                      renderPick(player.sundayPicks[0])
+                    {player.sundayPicks?.length > 0 ? (
+                      <strong className="picked-team">
+                        {player.sundayPicks[0].game}: {player.sundayPicks[0].pick}
+                      </strong>
                     ) : (
                       <div>No picks</div>
                     )}
@@ -121,35 +174,11 @@ function App() {
                   </td>
                 </tr>
                 {expandedRows[index] && (
-                  <>
-                    {/* Expanded Row with Picks for Friday */}
-                    {player.fridayPicks?.slice(1).map((pick, pickIndex) => (
-                      <tr key={`friday-${pickIndex}`} className="player-row">
-                        <td></td>
-                        <td className="picks-column">{renderPick(pick)}</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    ))}
-                    {/* Expanded Row with Picks for Saturday */}
-                    {player.saturdayPicks?.slice(1).map((pick, pickIndex) => (
-                      <tr key={`saturday-${pickIndex}`} className="player-row">
-                        <td></td>
-                        <td></td>
-                        <td className="picks-column">{renderPick(pick)}</td>
-                        <td></td>
-                      </tr>
-                    ))}
-                    {/* Expanded Row with Picks for Sunday */}
-                    {player.sundayPicks?.slice(1).map((pick, pickIndex) => (
-                      <tr key={`sunday-${pickIndex}`} className="player-row">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td className="picks-column">{renderPick(pick)}</td>
-                      </tr>
-                    ))}
-                  </>
+                  <tr>
+                    <td colSpan="5" style={{ background: "#f1f1f1" }}>
+                      <p>Additional Details for {player.name}</p>
+                    </td>
+                  </tr>
                 )}
                 <tr className="separator-row">
                   <td colSpan="5" className="blue-bar"></td>

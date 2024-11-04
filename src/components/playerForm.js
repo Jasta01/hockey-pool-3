@@ -56,7 +56,7 @@ const PlayerForm = ({ onSavePicks }) => {
         setPlayerList([
           "Joshua",
           "John Crocker",
-          "John Loder",
+          "Jon Loder",
           "Andrew",
           "Wrinkles",
           "Bunsey",

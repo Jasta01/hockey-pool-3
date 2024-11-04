@@ -6,41 +6,35 @@ const schedule = [
   {
     day: "friday",
     games: [
-      { game: "Blackhawks vs Sharks" },
-      { game: "Panthers vs Stars" },
-      { game: "Jets vs Blue Jackets" },
-      { game: "Senators vs Rangers" },
-      { game: "Islanders vs Sabres" },
-      { game: "Lightning vs Wild" },
-      { game: "Devils vs Flames" }
+      { game: "Red Wings vs Maple Leafs" },
+      { game: "Penguins vs Capitals" },
+      { game: "Wild vs Ducks" },
+      { game: "Golden Knights vs Kraken" }
     ]
   },
   {
     day: "saturday",
     games: [
-      { game: "Stars vs Panthers" },
-      { game: "Bruins vs Flyers" },
-      { game: "Blackhawks vs Kings" },
-      { game: "Blue Jackets vs Capitals" },
-      { game: "Maple Leafs vs Blues" },
-      { game: "Kraken vs Senators" },
-      { game: "Canadians vs Penguins" },
-      { game: "Sabres vs Red Wings" },
-      { game: "Avalanche vs Predators" },
-      { game: "Utah HC vs Golden Knights" },
-      { game: "Canucks vs Sharks" }
+      { game: "Flames vs Sabres" },
+      { game: "Stars vs Jets" },
+      { game: "Flyers vs Panthers" },
+      { game: "Senators vs Bruins" },
+      { game: "Canadians vs Maple Leafs" },
+      { game: "Capitals vs Blues" },
+      { game: "Rangers vs Red Wings" },
+      { game: "Devils vs islanders" },
+      { game: "Utah HC vs Predators" },
+      { game: "Blue Jackets vs Kings" },
+      { game: "Hurricanes vs Avalanche" },
+      { game: "Oilers vs Canucks" }
     ]
   },
   {
     day: "sunday",
     games: [
-      { game: "Islanders vs Rangers" },
-      { game: "Lightning vs Jets" },
-      { game: "Capitals vs Hurricanes" },
-      { game: "Kraken vs Bruins" },
-      { game: "Maple Leafs vs Wild" },
-      { game: "Oilers vs Flames" },
-      { game: "Blackhawks vs Ducks" }
+      { game: "Sharks vs Devils" },
+      { game: "Wild vs Blackhawks" },
+      { game: "Blue Jackets vs Ducks" }
     ]
   }
 ];
@@ -72,7 +66,8 @@ const PlayerForm = ({ onSavePicks }) => {
           "Landon",
           "Clifford",
           "Dave Rawding",
-          "Darryl"
+          "Darryl",
+          "Mike Greely"
         ].filter(player => !activePlayers.includes(player)));
       })
       .catch(error => console.error("Error loading players:", error));

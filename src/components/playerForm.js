@@ -86,33 +86,42 @@ const PlayerForm = ({ onSavePicks }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedPlayer || fridayPicks.length !== schedule[0].games.length ||
-        saturdayPicks.length !== schedule[1].games.length || sundayPicks.length !== schedule[2].games.length) {
-      alert("Please complete all picks and select a player name.");
+  
+    // Check if all picks are filled for each day
+    const isAllPicksComplete = (picks, dayIndex) => 
+      picks.length === schedule[dayIndex].games.length && picks.every(pick => pick?.pick);
+  
+    if (!selectedPlayer ||
+        !isAllPicksComplete(fridayPicks, 0) ||
+        !isAllPicksComplete(saturdayPicks, 1) ||
+        !isAllPicksComplete(sundayPicks, 2)) {
+      alert("Please complete all picks for each game and select a player name.");
       return;
     }
-
+  
     const data = {
       name: selectedPlayer,
       friday: fridayPicks,
       saturday: saturdayPicks,
       sunday: sundayPicks
     };
-
+  
     console.log("Picks being saved:", JSON.stringify(data, null, 2)); // Log the picks being saved in a readable format
-
+  
     try {
       const response = await fetch('/api/handler', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-
+  
       if (!response.ok) throw new Error(`Error saving picks: ${response.statusText}`);
-
+  
       const result = await response.json();
       console.log(result.message);
       onSavePicks(data); // Updates parent component
+  
+      // Reset form after successful submission
       setSelectedPlayer('');
       setFridayPicks([]);
       setSaturdayPicks([]);
@@ -121,6 +130,7 @@ const PlayerForm = ({ onSavePicks }) => {
       console.error('Error saving picks:', error);
     }
   };
+  
 
   return (
     <div className="player-form">

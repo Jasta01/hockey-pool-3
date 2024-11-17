@@ -21,9 +21,9 @@ const gameResults = {
     { game: "Sabres vs Flyers", winner: "Flyers" },
     { game: "Sharks vs Penguins", winner: "Penguins" },
     { game: "Senators vs Hurricanes", winner: "Hurricanes" },
-    { game: "Red Wings vs Kings", winner: null },
-    { game: "Stars vs Wild", winner: null },
-    { game: "Blackhawks vs Canucks", winner: null }
+    { game: "Red Wings vs Kings", winner: "Kings" },
+    { game: "Stars vs Wild", winner: "Stars" },
+    { game: "Blackhawks vs Canucks", winner: "Canucks" }
   ],
   sunday: [
     { game: "Blues vs Hurricanes", winner: null },

@@ -5,6 +5,7 @@ import PlayerForm from "./components/playerForm.js";
 // Sample results for each game
 const gameResults = {
   friday: [
+<<<<<<< HEAD
     { game: "Jets vs Penguins", winner: null },
     { game: "Sabres vs Ducks", winner: null }
   ],
@@ -27,6 +28,33 @@ const gameResults = {
   ],
   sunday: [
     { game: "Utah HC vs Maple Leafs", winner: null }
+=======
+    { game: "Penguins vs Blue Jackets", winner: "Blue Jackets" },
+    { game: "Capitals vs Avalanche", winner: "Capitals" },
+    { game: "Predators vs Flames", winner: "Flames" },
+    { game: "Golden Knights vs Utah HC", winner: "Golden Knights" },
+    { game: "Red Wings vs Ducks", winner: "Ducks" }
+  ],
+  saturday: [
+    { game: "Blues vs Bruins", winner: "Blues" },
+    { game: "Islanders vs Kraken", winner: "Kraken" },
+    { game: "Oilers vs Maple Leafs", winner: "Maple Leafs" },
+    { game: "Blue Jackets vs Canadians", winner: "Canadians" },
+    { game: "Devils vs Lightning", winner: "Lightning" },
+    { game: "Jets vs Panthers", winner: "Panthers" },
+    { game: "Sabres vs Flyers", winner: "Flyers" },
+    { game: "Sharks vs Penguins", winner: "Penguins" },
+    { game: "Senators vs Hurricanes", winner: "Hurricanes" },
+    { game: "Red Wings vs Kings", winner: "Kings" },
+    { game: "Stars vs Wild", winner: "Stars" },
+    { game: "Blackhawks vs Canucks", winner: "Canucks" }
+  ],
+  sunday: [
+    { game: "Blues vs Hurricanes", winner: "Hurricanes" },
+    { game: "Capitals vs Golden Knights", winner: "Capitals" },
+    { game: "Rangers vs Kraken", winner: "Rangers" },
+    { game: "Predators vs Canucks", winner: "Predators" }
+>>>>>>> a3817a29e375bae26d5191e27becd89ed1be77aa
   ]
 };
 

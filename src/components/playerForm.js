@@ -6,37 +6,34 @@ const schedule = [
   {
     day: "friday",
     games: [
-      { game: "Penguins vs Blue Jackets" },
-      { game: "Capitals vs Avalanche" },
-      { game: "Predators vs Flames" },
-      { game: "Golden Knights vs Utah HC" },
-      { game: "Red Wings vs Ducks" }
+      { game: "Jets vs Penguins" },
+      { game: "Sabres vs Ducks" }
     ]
   },
   {
     day: "saturday",
     games: [
-      { game: "Blues vs Bruins" },
-      { game: "Islanders vs Kraken" },
-      { game: "Oilers vs Maple Leafs" },
-      { game: "Blue Jackets vs Canadians" },
-      { game: "Devils vs Lightning" },
-      { game: "Jets vs Panthers" },
-      { game: "Sabres vs Flyers" },
-      { game: "Sharks vs Penguins" },
-      { game: "Senators vs Hurricanes" },
-      { game: "Red Wings vs Kings" },
-      { game: "Stars vs Wild" },
-      { game: "Blackhawks vs Canucks" }
+      { game: "Blackhawks vs Flyers" },
+      { game: "Wild vs Flames" },
+      { game: "Kraken vs Kings" },
+      { game: "Avalanche vs Panthers" },
+      { game: "Golden Knights vs Canadiens" },
+      { game: "Canucks vs Senators" },
+      { game: "Bruins vs Red Wings" },
+      { game: "Stars vs Lightning" },
+      { game: "Utah HC vs Penguins" },
+      { game: "Devils vs Capitals" },
+      { game: "Hurricanes vs Blue Jackets" },
+      { game: "Jets vs Predators" },
+      { game: "Blues vs Islanders" },
+      { game: "Sabres vs Sharks" },
+      { game: "Rangers vs Oilers" }
     ]
   },
   {
     day: "sunday",
     games: [
-      { game: "Blues vs Hurricanes" },
-      { game: "Capitals vs Golden Knights" },
-      { game: "Rangers vs Kraken" },
-      { game: "Predators vs Canucks" }
+      { game: "Utah HC vs Maple Leafs" }
     ]
   }
 ];
@@ -70,7 +67,8 @@ const PlayerForm = ({ onSavePicks }) => {
           "Dave Rawding",
           "Darryl",
           "Mike Greely",
-          "Rod"
+          "Rod",
+          "JD Squad"
         ].filter(player => !activePlayers.includes(player)));
       })
       .catch(error => console.error("Error loading players:", error));

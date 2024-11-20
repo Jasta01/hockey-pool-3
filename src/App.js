@@ -5,33 +5,31 @@ import PlayerForm from "./components/playerForm.js";
 // Sample results for each game
 const gameResults = {
   friday: [
-    { game: "Penguins vs Blue Jackets", winner: null },
-    { game: "Capitals vs Avalanche", winner: null },
-    { game: "Predators vs Flames", winner: null },
-    { game: "Golden Knights vs Utah HC", winner: null },
-    { game: "Red Wings vs Ducks", winner: null }
+    { game: "Jets vs Penguins", winner: null },
+    { game: "Sabres vs Ducks", winner: null }
   ],
   saturday: [
-    { game: "Blues vs Bruins", winner: null },
-    { game: "Islanders vs Kraken", winner: null },
-    { game: "Oilers vs Maple Leafs", winner: null },
-    { game: "Blue Jackets vs Canadians", winner: null },
-    { game: "Devils vs Lightning", winner: null },
-    { game: "Jets vs Panthers", winner: null },
-    { game: "Sabres vs Flyers", winner: null },
-    { game: "Sharks vs Penguins", winner: null },
-    { game: "Senators vs Hurricanes", winner: null },
-    { game: "Red Wings vs Kings", winner: null },
-    { game: "Stars vs Wild", winner: null },
-    { game: "Blackhawks vs Canucks", winner: null }
+    { game: "Blackhawks vs Flyers", winner: null },
+    { game: "Wild vs Flames", winner: null },
+    { game: "Kraken vs Kings", winner: null },
+    { game: "Avalanche vs Panthers", winner: null },
+    { game: "Golden Knights vs Canadiens", winner: null },
+    { game: "Canucks vs Senators", winner: null },
+    { game: "Bruins vs Red Wings", winner: null },
+    { game: "Stars vs Lightning", winner: null },
+    { game: "Utah HC vs Penguins", winner: null },
+    { game: "Devils vs Capitals", winner: null },
+    { game: "Hurricanes vs Blue Jackets", winner: null },
+    { game: "Jets vs Predators", winner: null },
+    { game: "Blues vs Islanders", winner: null },
+    { game: "Sabres vs Sharks", winner: null },
+    { game: "Rangers vs Oilers", winner: null }
   ],
   sunday: [
-    { game: "Blues vs Hurricanes", winner: null },
-    { game: "Capitals vs Golden Knights", winner: null },
-    { game: "Rangers vs Kraken", winner: null },
-    { game: "Predators vs Canucks", winner: null }
+    { game: "Utah HC vs Maple Leafs", winner: null }
   ]
 };
+
 
 
 // Function to calculate wins for each player

@@ -5,8 +5,8 @@ import PlayerForm from "./components/playerForm.js";
 // Sample results for each game
 const gameResults = {
   friday: [
-    { game: "Jets vs Penguins", winner: null },
-    { game: "Sabres vs Ducks", winner: null }
+    { game: "Jets vs Penguins", winner: "Jets" },
+    { game: "Sabres vs Ducks", winner: "Sabres" }
   ],
   saturday: [
     { game: "Blackhawks vs Flyers", winner: null },

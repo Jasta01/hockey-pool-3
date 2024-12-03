@@ -65,48 +65,6 @@ const calculateWins = (playerPicks, gameResults) => {
   return wins;
 };
 
-// Function to calculate remaining possible wins
-const calculatePotentialWins = (playerPicks, gameResults) => {
-  let potentialWins = 0;
-
-  ["friday", "saturday", "sunday"].forEach((day) => {
-    if (!playerPicks[`${day}Picks`] || !gameResults[day]) return;
-
-    playerPicks[`${day}Picks`].forEach((pick) => {
-      const gameResult = gameResults[day].find(
-        (result) => result.game === pick.game
-      );
-      // Count games that have no winner yet as potential wins
-      if (gameResult && !gameResult.winner) {
-        potentialWins++;
-      }
-    });
-  });
-
-  return potentialWins;
-};
-
-// Function to determine if a player can still win
-const canStillWin = (playersData, gameResults) => {
-  return playersData.map((player) => {
-    const currentWins = calculateWins(player, gameResults);
-    const potentialWins = calculatePotentialWins(player, gameResults);
-    const maxPossibleWins = currentWins + potentialWins;
-
-    // Find the maximum wins any other player could achieve
-    const otherPlayersMaxWins = playersData
-      .filter((p) => p.name !== player.name)
-      .map((p) => calculateWins(p, gameResults) + calculatePotentialWins(p, gameResults))
-      .reduce((max, wins) => Math.max(max, wins), 0);
-
-    return {
-      name: player.name,
-      canWin: maxPossibleWins >= otherPlayersMaxWins,
-    };
-  });
-};
-
-
 function App() {
   const [playersData, setPlayersData] = useState([]);
   const [expandedRows, setExpandedRows] = useState({});
@@ -179,8 +137,6 @@ function App() {
       [index]: !prev[index], // Toggle the expanded state
     }));
   };
-
-  const possibleWinners = canStillWin(playersData, gameResults);
 
   return (
     <div className="App">
@@ -352,41 +308,34 @@ function App() {
       </table>
 
       <h2 className="leaderboard-title">Leaderboard</h2>
-    <table className="leaderboard-table">
-      <thead>
-        <tr>
-          <th>Player</th>
-          <th>Games Played</th>
-          <th>Times Won</th>
-          <th>Win Percentage</th>
-          <th>Still Possible to Win</th>
-        </tr>
-      </thead>
-      <tbody>
-        {leaderboard.length > 0 ? (
-          leaderboard.map((player, index) => {
-            const possibleWinner = possibleWinners.find(
-              (p) => p.name === player.name
-            );
-            return (
+      <table className="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Games Played</th>
+            <th>Times Won</th>
+            <th>Win Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leaderboard.length > 0 ? (
+            leaderboard.map((player, index) => (
               <tr key={index}>
                 <td>{player.name}</td>
                 <td>{player.gamesPlayed}</td>
                 <td>{player.timesWon}</td>
                 <td>{player.winPercentage}%</td>
-                <td>{possibleWinner?.canWin ? "Yes" : "No"}</td>
               </tr>
-            );
-          })
-        ) : (
-          <tr>
-            <td colSpan="5" style={{ textAlign: "center" }}>
-              No players in leaderboard.
-            </td>
-          </tr>
-        )}
-      </tbody>
-    </table>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" style={{ textAlign: "center" }}>
+                No players in leaderboard.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }

@@ -163,48 +163,122 @@ function App() {
 
                   {/* Friday Picks */}
                   <td className="picks-column">
-                    {player.fridayPicks.slice(0, 1).map((pickData, i) => (
-                      <div key={i} className="game-pick">
-                        {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
-                      </div>
-                    ))}
-                    {expandedRows[index] &&
-                      player.fridayPicks.slice(1).map((pickData, i) => (
+                    {player.fridayPicks.slice(0, 1).map((pickData, i) => {
+                      const gameResult = gameResults.friday.find(
+                        (result) => result.game === pickData.game
+                      );
+                      const isWinner = gameResult && gameResult.winner === pickData.pick;
+
+                      return (
                         <div key={i} className="game-pick">
-                          {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                          {pickData.game}:{" "}
+                          <strong
+                            className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
+                          >
+                            {pickData.pick}
+                          </strong>
                         </div>
-                      ))}
+                      );
+                    })}
+                    {expandedRows[index] &&
+                      player.fridayPicks.slice(1).map((pickData, i) => {
+                        const gameResult = gameResults.friday.find(
+                          (result) => result.game === pickData.game
+                        );
+                        const isWinner = gameResult && gameResult.winner === pickData.pick;
+
+                        return (
+                          <div key={i} className="game-pick">
+                            {pickData.game}:{" "}
+                            <strong
+                              className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
+                            >
+                              {pickData.pick}
+                            </strong>
+                          </div>
+                        );
+                      })}
                   </td>
 
                   {/* Saturday Picks */}
                   <td className="picks-column">
-                    {player.saturdayPicks.slice(0, 1).map((pickData, i) => (
-                      <div key={i} className="game-pick">
-                        {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
-                      </div>
-                    ))}
-                    {expandedRows[index] &&
-                      player.saturdayPicks.slice(1).map((pickData, i) => (
+                    {player.saturdayPicks.slice(0, 1).map((pickData, i) => {
+                      const gameResult = gameResults.saturday.find(
+                        (result) => result.game === pickData.game
+                      );
+                      const isWinner = gameResult && gameResult.winner === pickData.pick;
+
+                      return (
                         <div key={i} className="game-pick">
-                          {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                          {pickData.game}:{" "}
+                          <strong
+                            className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
+                          >
+                            {pickData.pick}
+                          </strong>
                         </div>
-                      ))}
+                      );
+                    })}
+                    {expandedRows[index] &&
+                      player.saturdayPicks.slice(1).map((pickData, i) => {
+                        const gameResult = gameResults.saturday.find(
+                          (result) => result.game === pickData.game
+                        );
+                        const isWinner = gameResult && gameResult.winner === pickData.pick;
+
+                        return (
+                          <div key={i} className="game-pick">
+                            {pickData.game}:{" "}
+                            <strong
+                              className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
+                            >
+                              {pickData.pick}
+                            </strong>
+                          </div>
+                        );
+                      })}
                   </td>
+
 
                   {/* Sunday Picks */}
                   <td className="picks-column">
-                    {player.sundayPicks.slice(0, 1).map((pickData, i) => (
-                      <div key={i} className="game-pick">
-                        {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
-                      </div>
-                    ))}
-                    {expandedRows[index] &&
-                      player.sundayPicks.slice(1).map((pickData, i) => (
+                    {player.sundayPicks.slice(0, 1).map((pickData, i) => {
+                      const gameResult = gameResults.sunday.find(
+                        (result) => result.game === pickData.game
+                      );
+                      const isWinner = gameResult && gameResult.winner === pickData.pick;
+
+                      return (
                         <div key={i} className="game-pick">
-                          {pickData.game}: <strong className="picked-team">{pickData.pick}</strong>
+                          {pickData.game}:{" "}
+                          <strong
+                            className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
+                          >
+                            {pickData.pick}
+                          </strong>
                         </div>
-                      ))}
+                      );
+                    })}
+                    {expandedRows[index] &&
+                      player.sundayPicks.slice(1).map((pickData, i) => {
+                        const gameResult = gameResults.sunday.find(
+                          (result) => result.game === pickData.game
+                        );
+                        const isWinner = gameResult && gameResult.winner === pickData.pick;
+
+                        return (
+                          <div key={i} className="game-pick">
+                            {pickData.game}:{" "}
+                            <strong
+                              className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
+                            >
+                              {pickData.pick}
+                            </strong>
+                          </div>
+                        );
+                      })}
                   </td>
+
 
                   {/* Expand/Collapse Button */}
                   <td>

@@ -221,3 +221,8 @@ td {
     padding: 10px; /* Adjust as necessary */
   }
 }
+
+.highlight-winner {
+  color: green;
+  font-weight: bold;
+}

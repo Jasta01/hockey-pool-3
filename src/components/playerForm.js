@@ -6,47 +6,40 @@ const schedule = [
   {
     day: "friday",
     games: [
-      { game: "Rangers vs Flyers" },
-      { game: "Blackhawks vs Wild" },
-      { game: "Devils vs Red Wings" },
-      { game: "Flames vs Blue Jackets" },
-      { game: "Canucks vs Sabres" },
-      { game: "Lightning vs Predators" },
-      { game: "Panthers vs Hurricanes" },
-      { game: "Islanders vs Capitals" },
-      { game: "Kings vs Ducks" },
-      { game: "Kraken vs Sharks" },
-      { game: "Penguins vs Bruins" },
-      { game: "Jets vs Golden Knights" },
-      { game: "Oilers vs Utah HC" },
-      { game: "Avalanche vs Stars" }
+      { game: "Capitals vs Maple Leafs" },
+      { game: "Kraken vs Devils" },
+      { game: "Penguins vs Rangers" },
+      { game: "Wild vs Ducks" },
+      { game: "Blue Jackets vs Canucks" },
+      { game: "Stars vs Golden Knights" }
     ]
   },
   {
     day: "saturday",
     games: [
-      { game: "Canadiens vs Rangers" },
-      { game: "Hurricanes vs Panthers" },
-      { game: "Flames vs Penguins" },
-      { game: "Maple Leafs vs Lightning" },
-      { game: "Flyers vs Blues" },
-      { game: "Senators vs Kings" },
-      { game: "Capitals vs Devils" },
-      { game: "Sabres vs Islanders" },
-      { game: "Predators vs Wild" },
-      { game: "Sharks vs Kraken" },
-      { game: "Oilers vs Avalanche" },
-      { game: "Utah HC vs Golden Knights" }
+      { game: "Flyers vs Bruins" },
+      { game: "Utah HC vs Sabres" },
+      { game: "Jets vs Blackhawks" },
+      { game: "Hurricanes vs Islanders" },
+      { game: "Sharks vs Panthers" },
+      { game: "Predators vs Senators" },
+      { game: "Avalanche vs Red Wings" },
+      { game: "Capitals vs Canadiens" },
+      { game: "Maple Leafs vs Penguins" },
+      { game: "Wild vs Kings" },
+      { game: "Blues vs Oilers" }
     ]
   },
   {
     day: "sunday",
     games: [
-      { game: "Canucks vs Red Wings" },
-      { game: "Canadiens vs Bruins" },
-      { game: "Blue Jackets vs Blackhawks" },
-      { game: "Jets vs Stars" },
-      { game: "Senators vs Ducks" }
+      { game: "Kraken vs Rangers" },
+      { game: "Lightning vs Canucks" },
+      { game: "Islanders vs Senators" },
+      { game: "Blue Jackets vs Jets" },
+      { game: "Avalanche vs Devils" },
+      { game: "Utah HC vs Flyers" },
+      { game: "Flames vs Stars" }
     ]
   }
 ];

@@ -17,13 +17,13 @@ const gameResults = {
     { game: "Utah HC vs Sabres", winner: "Utah HC" },
     { game: "Jets vs Blackhawks", winner: "Jets" },
     { game: "Hurricanes vs Islanders", winner: "Islanders" },
-    { game: "Sharks vs Panthers", winner: false },
-    { game: "Predators vs Senators", winner: false },
-    { game: "Avalanche vs Red Wings", winner: false },
-    { game: "Capitals vs Canadiens", winner: false },
-    { game: "Maple Leafs vs Penguins", winner: false },
-    { game: "Wild vs Kings", winner: false },
-    { game: "Blues vs Oilers", winner: false }
+    { game: "Sharks vs Panthers", winner: "Panthers" },
+    { game: "Predators vs Senators", winner: "Senators" },
+    { game: "Avalanche vs Red Wings", winner: "Avalanche" },
+    { game: "Capitals vs Canadiens", winner: "Capitals" },
+    { game: "Maple Leafs vs Penguins", winner: "Penguins" },
+    { game: "Wild vs Kings", winner: "Kings" },
+    { game: "Blues vs Oilers", winner: "Oilers" }
   ],
   sunday: [
     { game: "Kraken vs Rangers", winner: false },

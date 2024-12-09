@@ -1,7 +1,7 @@
-/* Overall Page Styling */
+/* General Styling */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f7fa;
+  font-family: "Roboto", Arial, sans-serif;
+  background-color: #f0f4f8;
   color: #333;
   margin: 0;
   padding: 20px;
@@ -11,9 +11,10 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  background: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .app-title {
@@ -21,49 +22,65 @@ body {
   font-size: 36px;
   color: #003366;
   margin-bottom: 30px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Table Styling */
+/* Table Styles */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f9fbfd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 12px;
+  padding: 16px;
   text-align: left;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 th {
-  background-color: #003366;
-  color: white;
+  background-color: #004080;
+  color: #ffffff;
   text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: 1px;
+  font-weight: 700;
+  border-bottom: 2px solid #003366;
 }
 
 td {
-  background-color: #f9f9f9;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5eaf0;
 }
 
 .picks-column {
-  background-color: #eef5ff;
-  padding: 10px;
+  background-color: #eef4ff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin: 8px 0;
+  transition: background 0.3s ease;
+}
+
+.picks-column:hover {
+  background-color: #e0edff;
 }
 
 .game-pick {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-/* Highlight for Picked Team */
+/* Highlighting Picked Team */
 .picked-team {
   color: #d9534f;
+  font-weight: bold;
+}
+
+.highlight-winner {
+  color: #28a745;
   font-weight: bold;
 }
 
@@ -73,36 +90,49 @@ td {
   color: #0056b3;
 }
 
-/* Leaderboard Title */
+/* Leaderboard */
 .leaderboard-title {
   text-align: center;
   font-size: 28px;
-  color: #003366;
+  color: #004080;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Leaderboard Table Styling */
-.leaderboard-table {
-  margin-top: 20px;
-}
-
-.leaderboard-table td, .leaderboard-table th {
-  text-align: center;
+  font-weight: bold;
 }
 
 .leaderboard-table th {
   background-color: #003366;
   color: white;
+}
+
+.leaderboard-table td, .leaderboard-table th {
+  text-align: center;
   padding: 12px;
 }
 
 .leaderboard-table td {
-  background-color: #f9f9f9;
-  padding: 12px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5eaf0;
 }
 
-/* Blue Bar Separator */
+/* Expand Button */
+.expand-button {
+  background-color: #0056b3;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.expand-button:hover {
+  background-color: #003d80;
+  transform: scale(1.05);
+}
+
+/* Separator */
 .separator-row .blue-bar {
   background-color: #003366;
   height: 2px;
@@ -111,48 +141,7 @@ td {
   margin: 0;
 }
 
-/* Expand button */
-.expand-button {
-  background-color: #0056b3;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 12px;
-  transition: transform 0.2s, background 0.3s;
-}
-
-.expand-button:hover {
-  background-color: #003d80;
-  transform: scale(1.1);
-}
-
-/* Expanded Picks Styling */
-.expanded-picks {
-  display: flex;
-  flex-direction: column;
-}
-
-.expanded-picks .game-pick {
-  margin-bottom: 5px; /* Space between picks */
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.fade-in {
-  animation: fadeIn 1s ease-in-out;
-}
-
-/* Mobile Responsive Styles */
+/* Responsive Styles */
 @media (max-width: 768px) {
   body {
     padding: 10px;
@@ -172,44 +161,31 @@ td {
   }
 
   th, td {
-    padding: 8px;
-  }
-
-  .picks-column, .leaderboard-table td {
-    font-size: 11px;
-  }
-
-  .game-pick {
-    margin-bottom: 5px;
-  }
-
-  .leaderboard-title {
-    font-size: 24px;
+    padding: 10px;
   }
 
   .expand-button {
-    font-size: 10px;
-    padding: 4px 8px;
+    font-size: 11px;
+    padding: 5px 10px;
   }
 }
 
-/* Very Small Mobile Devices */
 @media (max-width: 480px) {
   .app-title {
     font-size: 24px;
-  }
-
-  th, td {
-    padding: 6px;
   }
 
   table {
     font-size: 10px;
   }
 
+  th, td {
+    padding: 8px;
+  }
+
   .expand-button {
-    font-size: 9px;
-    padding: 3px 6px;
+    font-size: 10px;
+    padding: 4px 8px;
   }
 
   .leaderboard-title {
@@ -217,12 +193,26 @@ td {
   }
 
   .picks-column {
-    background-color: #eef5ff; /* Retain your background styling */
-    padding: 10px; /* Adjust as necessary */
+    padding: 8px;
   }
 }
 
-.highlight-winner {
-  color: green;
-  font-weight: bold;
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Hover Effect */
+tr:hover {
+  background-color: #f1f5fa;
+  transition: background-color 0.2s ease;
 }

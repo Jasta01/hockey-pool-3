@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import PlayerForm from "./components/playerForm.js";
+import PlayerForm from "./components/playerForm";
 
-// Sample results for each game
 const gameResults = {
   friday: [
     { game: "Capitals vs Maple Leafs", winner: "Capitals" },
@@ -10,7 +9,7 @@ const gameResults = {
     { game: "Penguins vs Rangers", winner: "Rangers" },
     { game: "Wild vs Ducks", winner: "Wild" },
     { game: "Blue Jackets vs Canucks", winner: "Canucks" },
-    { game: "Stars vs Golden Knights", winner: "Golden Knights" }
+    { game: "Stars vs Golden Knights", winner: "Golden Knights" },
   ],
   saturday: [
     { game: "Flyers vs Bruins", winner: "Bruins" },
@@ -23,7 +22,7 @@ const gameResults = {
     { game: "Capitals vs Canadiens", winner: "Capitals" },
     { game: "Maple Leafs vs Penguins", winner: "Penguins" },
     { game: "Wild vs Kings", winner: "Kings" },
-    { game: "Blues vs Oilers", winner: "Oilers" }
+    { game: "Blues vs Oilers", winner: "Oilers" },
   ],
   sunday: [
     { game: "Kraken vs Rangers", winner: "Kraken" },
@@ -32,14 +31,10 @@ const gameResults = {
     { game: "Blue Jackets vs Jets", winner: "Blue Jackets" },
     { game: "Avalanche vs Devils", winner: "Avalanche" },
     { game: "Utah HC vs Flyers", winner: "Utah HC" },
-    { game: "Flames vs Stars", winner: "Stars" }
-  ]
+    { game: "Flames vs Stars", winner: "Stars" },
+  ],
 };
 
-
-
-
-// Function to calculate wins for each player
 const calculateWins = (playerPicks, gameResults) => {
   let wins = 0;
 
@@ -50,7 +45,7 @@ const calculateWins = (playerPicks, gameResults) => {
       const gameResult = gameResults[day].find(
         (result) => result.game === pick.game
       );
-      if (gameResult && gameResult.winner && gameResult.winner === pick.pick) {
+      if (gameResult && gameResult.winner === pick.pick) {
         wins++;
       }
     });
@@ -58,6 +53,107 @@ const calculateWins = (playerPicks, gameResults) => {
 
   return wins;
 };
+
+const PlayerTable = ({ playersData, expandedRows, toggleRow }) => (
+  <table className="picks-table">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Friday Picks</th>
+        <th>Saturday Picks</th>
+        <th>Sunday Picks</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {playersData.length > 0 ? (
+        playersData.map((player, index) => (
+          <React.Fragment key={index}>
+            <tr className="player-row">
+              <td className="player-name">{player.name}</td>
+              <td className="picks-column">
+                {renderPicks(player.fridayPicks, gameResults.friday, expandedRows, index)}
+              </td>
+              <td className="picks-column">
+                {renderPicks(player.saturdayPicks, gameResults.saturday, expandedRows, index)}
+              </td>
+              <td className="picks-column">
+                {renderPicks(player.sundayPicks, gameResults.sunday, expandedRows, index)}
+              </td>
+              <td>
+                <button className="expand-button" onClick={() => toggleRow(index)}>
+                  {expandedRows[index] ? "Show Less" : "Show More"}
+                </button>
+              </td>
+            </tr>
+            <tr className="separator-row">
+              <td colSpan="5" className="blue-bar"></td>
+            </tr>
+          </React.Fragment>
+        ))
+      ) : (
+        <tr>
+          <td colSpan="5" style={{ textAlign: "center" }}>
+            No players found.
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+);
+
+const renderPicks = (picks, results, expandedRows, index) => (
+  <>
+    {picks.slice(0, 1).map((pickData, i) => renderPick(pickData, results, i))}
+    {expandedRows[index] &&
+      picks.slice(1).map((pickData, i) => renderPick(pickData, results, i))}
+  </>
+);
+
+const renderPick = (pickData, results, i) => {
+  const gameResult = results.find((result) => result.game === pickData.game);
+  const isWinner = gameResult && gameResult.winner === pickData.pick;
+
+  return (
+    <div key={i} className="game-pick">
+      {pickData.game}:{" "}
+      <strong className={`picked-team ${isWinner ? "highlight-winner" : ""}`}>
+        {pickData.pick}
+      </strong>
+    </div>
+  );
+};
+
+const Leaderboard = ({ leaderboard }) => (
+  <table className="leaderboard-table">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Games Played</th>
+        <th>Times Won</th>
+        <th>Win Percentage</th>
+      </tr>
+    </thead>
+    <tbody>
+      {leaderboard.length > 0 ? (
+        leaderboard.map((player, index) => (
+          <tr key={index}>
+            <td>{player.name}</td>
+            <td>{player.gamesPlayed}</td>
+            <td>{player.timesWon}</td>
+            <td>{player.winPercentage}%</td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan="4" style={{ textAlign: "center" }}>
+            No players in leaderboard.
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+);
 
 function App() {
   const [playersData, setPlayersData] = useState([]);
@@ -77,259 +173,53 @@ function App() {
       .catch((error) => console.error("Error loading JSON:", error));
   }, []);
 
-  const onSavePicks = (newPicks) => {
-    const existingPlayerIndex = playersData.findIndex(
-      (player) => player.name === newPicks.name
-    );
-    const updatedPicks = {
-      name: newPicks.name,
-      fridayPicks: newPicks.friday,
-      saturdayPicks: newPicks.saturday,
-      sundayPicks: newPicks.sunday,
-    };
-
-    if (existingPlayerIndex !== -1) {
-      const updatedPlayers = [...playersData];
-      updatedPlayers[existingPlayerIndex] = {
-        ...updatedPlayers[existingPlayerIndex],
-        ...updatedPicks,
-      };
-      setPlayersData(updatedPlayers);
-    } else {
-      setPlayersData((prevPlayers) => [...prevPlayers, updatedPicks]);
-    }
-  };
-
-  const leaderboard = playersData.map((player) => {
-    const gamesPlayed = ["friday", "saturday", "sunday"].reduce((total, day) => {
-      if (!player[`${day}Picks`] || !gameResults[day]) return total;
-
-      const dayGamesPlayed = player[`${day}Picks`].filter((pick) =>
-        gameResults[day].some(
-          (gameResult) => gameResult.game === pick.game && gameResult.winner !== null
-        )
-      ).length;
-
-      return total + dayGamesPlayed;
-    }, 0);
-
-    const timesWon = calculateWins(player, gameResults);
-    const winPercentage =
-      gamesPlayed > 0 ? ((timesWon / gamesPlayed) * 100).toFixed(2) : 0;
-
-    return {
-      name: player.name,
-      gamesPlayed,
-      timesWon,
-      winPercentage,
-    };
-  }).sort((a, b) => b.winPercentage - a.winPercentage || b.timesWon - a.timesWon); // Sort by win percentage, then by wins
-
   const toggleRow = (index) => {
     setExpandedRows((prev) => ({
       ...prev,
-      [index]: !prev[index], // Toggle the expanded state
+      [index]: !prev[index],
     }));
   };
+
+  const leaderboard = playersData
+    .map((player) => {
+      const gamesPlayed = ["friday", "saturday", "sunday"].reduce(
+        (total, day) => {
+          if (!player[`${day}Picks`] || !gameResults[day]) return total;
+          const dayGamesPlayed = player[`${day}Picks`].filter((pick) => {
+            const gameResult = gameResults[day].find(
+              (gameResult) => gameResult.game === pick.game
+            );
+            return gameResult && gameResult.winner;
+          }).length;
+          return total + dayGamesPlayed;
+        },
+        0
+      );
+
+      const timesWon = calculateWins(player, gameResults);
+      const winPercentage =
+        gamesPlayed > 0 ? ((timesWon / gamesPlayed) * 100).toFixed(2) : 0;
+
+      return {
+        name: player.name,
+        gamesPlayed,
+        timesWon,
+        winPercentage,
+      };
+    })
+    .sort((a, b) => b.winPercentage - a.winPercentage || b.timesWon - a.timesWon);
 
   return (
     <div className="App">
       <h1 className="app-title">Hockey Pool</h1>
-      <PlayerForm onSavePicks={onSavePicks} />
-
-      {/* Player Picks Table */}
-      <table className="picks-table">
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th>Friday Picks</th>
-            <th>Saturday Picks</th>
-            <th>Sunday Picks</th>
-            <th></th> {/* Column for expand button */}
-          </tr>
-        </thead>
-        <tbody>
-          {playersData.length > 0 ? (
-            playersData.map((player, index) => (
-              <React.Fragment key={index}>
-                <tr className="player-row">
-                  <td className="player-name">{player.name}</td>
-
-                  {/* Friday Picks */}
-                  <td className="picks-column">
-                    {player.fridayPicks.slice(0, 1).map((pickData, i) => {
-                      const gameResult = gameResults.friday.find(
-                        (result) => result.game === pickData.game
-                      );
-                      const isWinner = gameResult && gameResult.winner === pickData.pick;
-
-                      return (
-                        <div key={i} className="game-pick">
-                          {pickData.game}:{" "}
-                          <strong
-                            className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
-                          >
-                            {pickData.pick}
-                          </strong>
-                        </div>
-                      );
-                    })}
-                    {expandedRows[index] &&
-                      player.fridayPicks.slice(1).map((pickData, i) => {
-                        const gameResult = gameResults.friday.find(
-                          (result) => result.game === pickData.game
-                        );
-                        const isWinner = gameResult && gameResult.winner === pickData.pick;
-
-                        return (
-                          <div key={i} className="game-pick">
-                            {pickData.game}:{" "}
-                            <strong
-                              className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
-                            >
-                              {pickData.pick}
-                            </strong>
-                          </div>
-                        );
-                      })}
-                  </td>
-
-                  {/* Saturday Picks */}
-                  <td className="picks-column">
-                    {player.saturdayPicks.slice(0, 1).map((pickData, i) => {
-                      const gameResult = gameResults.saturday.find(
-                        (result) => result.game === pickData.game
-                      );
-                      const isWinner = gameResult && gameResult.winner === pickData.pick;
-
-                      return (
-                        <div key={i} className="game-pick">
-                          {pickData.game}:{" "}
-                          <strong
-                            className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
-                          >
-                            {pickData.pick}
-                          </strong>
-                        </div>
-                      );
-                    })}
-                    {expandedRows[index] &&
-                      player.saturdayPicks.slice(1).map((pickData, i) => {
-                        const gameResult = gameResults.saturday.find(
-                          (result) => result.game === pickData.game
-                        );
-                        const isWinner = gameResult && gameResult.winner === pickData.pick;
-
-                        return (
-                          <div key={i} className="game-pick">
-                            {pickData.game}:{" "}
-                            <strong
-                              className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
-                            >
-                              {pickData.pick}
-                            </strong>
-                          </div>
-                        );
-                      })}
-                  </td>
-
-
-                  {/* Sunday Picks */}
-                  <td className="picks-column">
-                    {player.sundayPicks.slice(0, 1).map((pickData, i) => {
-                      const gameResult = gameResults.sunday.find(
-                        (result) => result.game === pickData.game
-                      );
-                      const isWinner = gameResult && gameResult.winner === pickData.pick;
-
-                      return (
-                        <div key={i} className="game-pick">
-                          {pickData.game}:{" "}
-                          <strong
-                            className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
-                          >
-                            {pickData.pick}
-                          </strong>
-                        </div>
-                      );
-                    })}
-                    {expandedRows[index] &&
-                      player.sundayPicks.slice(1).map((pickData, i) => {
-                        const gameResult = gameResults.sunday.find(
-                          (result) => result.game === pickData.game
-                        );
-                        const isWinner = gameResult && gameResult.winner === pickData.pick;
-
-                        return (
-                          <div key={i} className="game-pick">
-                            {pickData.game}:{" "}
-                            <strong
-                              className={`picked-team ${isWinner ? "highlight-winner" : ""}`}
-                            >
-                              {pickData.pick}
-                            </strong>
-                          </div>
-                        );
-                      })}
-                  </td>
-
-
-                  {/* Expand/Collapse Button */}
-                  <td>
-                    <button
-                      className="expand-button"
-                      onClick={() => toggleRow(index)}
-                    >
-                      {expandedRows[index] ? "Show Less" : "Show More"}
-                    </button>
-                  </td>
-                </tr>
-
-                {/* Blue bar separator */}
-                <tr className="separator-row">
-                  <td colSpan="5" className="blue-bar"></td>
-                </tr>
-              </React.Fragment>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>
-                No players found.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-
+      <PlayerForm onSavePicks={(newPicks) => setPlayersData(newPicks)} />
+      <PlayerTable
+        playersData={playersData}
+        expandedRows={expandedRows}
+        toggleRow={toggleRow}
+      />
       <h2 className="leaderboard-title">Leaderboard</h2>
-      <table className="leaderboard-table">
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th>Games Played</th>
-            <th>Times Won</th>
-            <th>Win Percentage</th>
-          </tr>
-        </thead>
-        <tbody>
-          {leaderboard.length > 0 ? (
-            leaderboard.map((player, index) => (
-              <tr key={index}>
-                <td>{player.name}</td>
-                <td>{player.gamesPlayed}</td>
-                <td>{player.timesWon}</td>
-                <td>{player.winPercentage}%</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4" style={{ textAlign: "center" }}>
-                No players in leaderboard.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <Leaderboard leaderboard={leaderboard} />
     </div>
   );
 }

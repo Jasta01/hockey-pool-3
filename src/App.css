@@ -38,7 +38,7 @@ table {
 }
 
 th, td {
-  padding: 16px;
+  padding: 12px;
   text-align: left;
   font-size: 14px;
   line-height: 1.5;
@@ -99,14 +99,22 @@ td {
   font-weight: bold;
 }
 
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
 .leaderboard-table th {
   background-color: #003366;
   color: white;
+  text-align: center;
 }
 
 .leaderboard-table td, .leaderboard-table th {
   text-align: center;
   padding: 12px;
+  font-size: 14px;
 }
 
 .leaderboard-table td {
@@ -142,6 +150,8 @@ td {
 }
 
 /* Responsive Styles */
+
+/* For Tablets and Smaller Screens */
 @media (max-width: 768px) {
   body {
     padding: 10px;
@@ -168,11 +178,18 @@ td {
     font-size: 11px;
     padding: 5px 10px;
   }
+
+  .leaderboard-table td, .leaderboard-table th {
+    font-size: 12px;
+    padding: 8px;
+  }
 }
 
+/* For Mobile Phones */
 @media (max-width: 480px) {
   .app-title {
     font-size: 24px;
+    margin-bottom: 15px;
   }
 
   table {
@@ -190,10 +207,20 @@ td {
 
   .leaderboard-title {
     font-size: 20px;
+    margin-bottom: 15px;
   }
 
-  .picks-column {
-    padding: 8px;
+  .leaderboard-table {
+    font-size: 10px;
+    overflow-x: auto; /* Horizontal scrolling for narrow screens */
+    display: block;
+    white-space: nowrap; /* Prevents cell wrapping */
+  }
+
+  .leaderboard-table th, .leaderboard-table td {
+    padding: 6px;
+    font-size: 10px;
+    text-align: center;
   }
 }
 

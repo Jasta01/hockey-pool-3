@@ -168,19 +168,35 @@ td {
     font-size: 11px;
     padding: 5px 10px;
   }
+  
+  .picks-column {
+    padding: 8px;
+  }
+
+  .game-pick {
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 480px) {
   .app-title {
     font-size: 24px;
+    margin-bottom: 15px;
   }
 
   table {
     font-size: 10px;
+    width: 100%;
   }
 
   th, td {
-    padding: 8px;
+    padding: 6px;
+    font-size: 10px;
+  }
+
+  .picks-column {
+    padding: 6px;
+    font-size: 10px;
   }
 
   .expand-button {
@@ -192,8 +208,20 @@ td {
     font-size: 20px;
   }
 
-  .picks-column {
-    padding: 8px;
+  /* Fixing Expand Button Overflow */
+  .picks-table td:last-child {
+    text-align: center;
+  }
+  
+  .game-pick {
+    margin-bottom: 8px;
+  }
+
+  /* Horizontal Scrolling for Overflow */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 }
 

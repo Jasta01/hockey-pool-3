@@ -127,7 +127,7 @@ const Leaderboard = ({ leaderboard }) => (
       <tr>
         <th>Player</th>
         <th>Games Played</th>
-        <th>Times Won</th>
+        <th>Games Won</th>
         <th>Win Percentage</th>
       </tr>
     </thead>

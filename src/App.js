@@ -4,7 +4,7 @@ import PlayerForm from "./components/playerForm";
 
 const gameResults = {
   friday: [
-    { game: "Senators vs Hurricanes", winner: null }
+    { game: "Senators vs Hurricanes", winner: "Senators" }
   ],
   saturday: [
     { game: "Blackhawks vs Devils", winner: null },

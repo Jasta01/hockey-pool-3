@@ -4,31 +4,34 @@ import PlayerForm from "./components/playerForm";
 
 const gameResults = {
   friday: [
-    { game: "Senators vs Hurricanes", winner: "Senators" }
+    { game: "Maple Leafs vs Sabres", winner: null },
+    { game: "Blues vs Panthers", winner: null },
+    { game: "Hurricanes vs Capitals", winner: null },
+    { game: "Canadiens vs Red Wings", winner: null },
+    { game: "Utah HC vs Wild", winner: null },
+    { game: "Rangers vs Stars", winner: null },
+    { game: "Avalanche vs Ducks", winner: null }
   ],
   saturday: [
-    { game: "Blackhawks vs Devils", winner: "Devils" },
-    { game: "Kings vs Rangers", winner: "Kings" },
-    { game: "Flyers vs Wild", winner: "Wild" },
-    { game: "Golden Knights vs Oilers", winner: "Oilers" },
-    { game: "Canadiens vs Jets", winner: "Jets" },
-    { game: "Ducks vs Blue Jackets", winner: "Ducks" },
-    { game: "Maple Leafs vs Red Wings", winner: "Red Wings" },
-    { game: "Penguins vs Senators", winner: "Senators" },
-    { game: "Sabres vs Capitals", winner: "Capitals" },
-    { game: "Blues vs Stars", winner: "Stars" },
-    { game: "Predators vs Avalanche", winner: "Avalanche" },
-    { game: "Lightning vs Kraken", winner: "Lightning" },
-    { game: "Utah HC vs Sharks", winner: "Utah HC" },
-    { game: "Bruins vs Canucks", winner: "Bruins" },
-    { game: "Panthers vs Flames", winner: "Flames" }
+    { game: "Kings vs Predators", winner: null },
+    { game: "Blackhawks vs Flames", winner: null },
+    { game: "Sharks vs Oilers", winner: null },
+    { game: "Wild vs Jets", winner: null },
+    { game: "Red Wings vs Canadiens", winner: null },
+    { game: "Islanders vs Maple Leafs", winner: null },
+    { game: "Penguins vs Devils", winner: null },
+    { game: "Sabres vs Bruins", winner: null },
+    { game: "Blue Jackets vs Flyers", winner: null },
+    { game: "Senators vs Canucks", winner: null },
+    { game: "Kraken vs Golden Knights", winner: null }
   ],
   sunday: [
-    { game: "Islanders vs Blackhawks", winner: "Blackhawks" },
-    { game: "Sabres vs Maple Leafs", winner: "Maple Leafs" },
-    { game: "Blue Jackets vs Hurricanes", winner: "Hurricanes" },
-    { game: "Rangers vs Blues", winner: "Blues" },
-    { game: "Golden Knights vs Wild", winner: "Golden Knights" }
+    { game: "Hurricanes vs Rangers", winner: null },
+    { game: "Panthers vs Lightning", winner: null },
+    { game: "Kings vs Capitals", winner: null },
+    { game: "Ducks vs Utah HC", winner: null },
+    { game: "Senators vs Oilers", winner: null },
+    { game: "Kraken vs Avalanche", winner: null }
   ]
 };
 

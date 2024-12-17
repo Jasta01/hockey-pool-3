@@ -6,37 +6,40 @@ const schedule = [
   {
     day: "friday",
     games: [
-      { game: "Senators vs Hurricanes" }
+      { game: "Maple Leafs vs Sabres" },
+      { game: "Blues vs Panthers" },
+      { game: "Hurricanes vs Capitals" },
+      { game: "Canadiens vs Red Wings" },
+      { game: "Utah HC vs Wild" },
+      { game: "Rangers vs Stars" },
+      { game: "Avalanche vs Ducks" }
     ]
   },
   {
     day: "saturday",
     games: [
-      { game: "Blackhawks vs Devils" },
-      { game: "Kings vs Rangers" },
-      { game: "Flyers vs Wild" },
-      { game: "Golden Knights vs Oilers" },
-      { game: "Canadiens vs Jets" },
-      { game: "Ducks vs Blue Jackets" },
-      { game: "Maple Leafs vs Red Wings" },
-      { game: "Penguins vs Senators" },
-      { game: "Sabres vs Capitals" },
-      { game: "Blues vs Stars" },
-      { game: "Predators vs Avalanche" },
-      { game: "Lightning vs Kraken" },
-      { game: "Utah HC vs Sharks" },
-      { game: "Bruins vs Canucks" },
-      { game: "Panthers vs Flames" }
+      { game: "Kings vs Predators" },
+      { game: "Blackhawks vs Flames" },
+      { game: "Sharks vs Oilers" },
+      { game: "Wild vs Jets" },
+      { game: "Red Wings vs Canadiens" },
+      { game: "Islanders vs Maple Leafs" },
+      { game: "Penguins vs Devils" },
+      { game: "Sabres vs Bruins" },
+      { game: "Blue Jackets vs Flyers" },
+      { game: "Senators vs Canucks" },
+      { game: "Kraken vs Golden Knights" }
     ]
   },
   {
     day: "sunday",
     games: [
-      { game: "Islanders vs Blackhawks" },
-      { game: "Sabres vs Maple Leafs" },
-      { game: "Blue Jackets vs Hurricanes" },
-      { game: "Rangers vs Blues" },
-      { game: "Golden Knights vs Wild" }
+      { game: "Hurricanes vs Rangers" },
+      { game: "Panthers vs Lightning" },
+      { game: "Kings vs Capitals" },
+      { game: "Ducks vs Utah HC" },
+      { game: "Senators vs Oilers" },
+      { game: "Kraken vs Avalanche" }
     ]
   }
 ];
@@ -63,15 +66,15 @@ const PlayerForm = ({ onSavePicks }) => {
           "Wrinkles",
           "Bunsey",
           "Dean/JD",
-        //  "Adam",
+          "Adam",
           "Sadie",
-        //  "Landon",
+          "Landon",
           "Clifford",
           "Dave Rawding",
-          // "Darryl",
+          "Darryl",
           "Mike Greely",
           "Rod",
-          // "JD Squad",
+          "JD Squad",
           "Pat"
         ].filter(player => !activePlayers.includes(player)));
       })
@@ -183,7 +186,7 @@ const PlayerForm = ({ onSavePicks }) => {
           <button type="submit" className="submit-button">Save Picks</button>
         </form>
       ) : (
-        <p>All players have submitted picks.</p> // Message if no players are left
+        <p>The first game has started, no more picks allowed.</p> // Message if no players are left
       )}
     </div>
   );

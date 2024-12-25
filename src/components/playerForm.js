@@ -21,7 +21,7 @@ const schedule = [
     games: [
       { game: "Canadiens vs Panthers" },
       { game: "Oilers vs Kings" },
-      { game: "Kraken Canucks" },
+      { game: "Kraken vs Canucks" },
       { game: "Flyers vs Ducks" },
       { game: "Senators vs Jets" },
       { game: "Blue Jackets vs Bruins" },

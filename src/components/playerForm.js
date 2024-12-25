@@ -75,10 +75,10 @@ const PlayerForm = ({ onSavePicks }) => {
           "Landon",
           "Clifford",
           "Dave Rawding",
-        //  "Darryl",
-        //  "Mike Greely",
+          "Darryl",
+          "Mike Greely",
           "Rod",
-         // "JD Squad",
+          "JD Squad",
           "Pat"
         ].filter(player => !activePlayers.includes(player)));
       })

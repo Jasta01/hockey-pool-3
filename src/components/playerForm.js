@@ -6,40 +6,44 @@ const schedule = [
   {
     day: "friday",
     games: [
-      { game: "Maple Leafs vs Sabres" },
-      { game: "Blues vs Panthers" },
-      { game: "Hurricanes vs Capitals" },
-      { game: "Canadiens vs Red Wings" },
-      { game: "Utah HC vs Wild" },
-      { game: "Rangers vs Stars" },
-      { game: "Avalanche vs Ducks" }
+      { game: "Maple Leafs vs Red Wings" },
+      { game: "Hurricanes vs Devils" },
+      { game: "Bruins vs Blue Jackets" },
+      { game: "Blackhawks vs Sabres" },
+      { game: "Predators vs Blues" },
+      { game: "Wild vs Stars" },
+      { game: "Avalanche vs Utah HC" },
+      { game: "Golden Knights vs Sharks" }
     ]
   },
   {
     day: "saturday",
     games: [
-      { game: "Kings vs Predators" },
-      { game: "Blackhawks vs Flames" },
-      { game: "Sharks vs Oilers" },
-      { game: "Wild vs Jets" },
-      { game: "Red Wings vs Canadiens" },
-      { game: "Islanders vs Maple Leafs" },
-      { game: "Penguins vs Devils" },
-      { game: "Sabres vs Bruins" },
-      { game: "Blue Jackets vs Flyers" },
-      { game: "Senators vs Canucks" },
-      { game: "Kraken vs Golden Knights" }
+      { game: "Canadiens vs Panthers" },
+      { game: "Oilers vs Kings" },
+      { game: "Kraken Canucks" },
+      { game: "Flyers vs Ducks" },
+      { game: "Senators vs Jets" },
+      { game: "Blue Jackets vs Bruins" },
+      { game: "Rangers vs Lightning" },
+      { game: "Capitals vs Leafs" },
+      { game: "Devils vs Hurricanes" },
+      { game: "Penguins vs Islanders" },
+      { game: "Flames vs Sharks" }
     ]
   },
   {
     day: "sunday",
     games: [
-      { game: "Hurricanes vs Rangers" },
-      { game: "Panthers vs Lightning" },
-      { game: "Kings vs Capitals" },
-      { game: "Ducks vs Utah HC" },
-      { game: "Senators vs Oilers" },
-      { game: "Kraken vs Avalanche" }
+      { game: "Sabres vs Blues" },
+      { game: "Oilers vs Ducks" },
+      { game: "Canadiens vs Lightning" },
+      { game: "Capitals vs Red Wings" },
+      { game: "Islanders vs Penguins" },
+      { game: "Flames vs Golden Knights" },
+      { game: "Senators vs Wild" },
+      { game: "Stars vs Blackhawks" },
+      { game: "Flyers vs Kings" }
     ]
   }
 ];

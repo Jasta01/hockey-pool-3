@@ -23,8 +23,8 @@ const gameResults = {
     { game: "Rangers vs Lightning", winner: "Lightning" },
     { game: "Capitals vs Leafs", winner: "Capitals" },
     { game: "Devils vs Hurricanes", winner: "Hurricanes" },
-    { game: "Penguins vs Islanders", winner: null },
-    { game: "Flames vs Sharks", winner: null }
+    { game: "Penguins vs Islanders", winner: "Islanders" },
+    { game: "Flames vs Sharks", winner: "Flames" }
   ],
   sunday: [
     { game: "Sabres vs Blues", winner: null },

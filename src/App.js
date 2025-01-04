@@ -4,11 +4,11 @@ import PlayerForm from "./components/playerForm";
 
 const gameResults = {
   friday: [
-    { game: "Penguins vs Panthers", winner: null },
-    { game: "Canadiens vs Blackhawks", winner: null },
-    { game: "Senators vs Blues", winner: null },
-    { game: "Ducks vs Oilers", winner: null },
-    { game: "Predators vs Canucks", winner: null }
+    { game: "Penguins vs Panthers", winner: "Panthers" },
+    { game: "Canadiens vs Blackhawks", winner: "Blackhawks" },
+    { game: "Senators vs Blues", winner: "Blues" },
+    { game: "Ducks vs Oilers", winner: "Oilers" },
+    { game: "Predators vs Canucks", winner: "Predators" }
   ],
   saturday: [
     { game: "Rangers vs Capitals", winner: null },

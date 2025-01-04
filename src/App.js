@@ -11,7 +11,7 @@ const gameResults = {
     { game: "Predators vs Canucks", winner: "Predators" }
   ],
   saturday: [
-    { game: "Rangers vs Capitals", winner: null },
+    { game: "Rangers vs Capitals", winner: "Capitals" },
     { game: "Red Wings vs Jets", winner: null },
     { game: "Devils vs Sharks", winner: null },
     { game: "Canadiens vs Avalanche", winner: null },

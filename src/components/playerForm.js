@@ -6,38 +6,41 @@ const schedule = [
   {
     day: "friday",
     games: [
-      { game: "Penguins vs Panthers" },
-      { game: "Canadiens vs Blackhawks" },
-      { game: "Senators vs Blues" },
-      { game: "Ducks vs Oilers" },
-      { game: "Predators vs Canucks" }
+      { game: "Canadiens vs Capitals" },
+      { game: "Canucks vs Hurricanes" },
+      { game: "Blackhawks vs Red Wings" },
+      { game: "Kings vs Jets" },
+      { game: "Sharks vs Utah HC" }
     ]
   },
   {
     day: "saturday",
     games: [
-      { game: "Rangers vs Capitals" },
-      { game: "Red Wings vs Jets" },
-      { game: "Devils vs Sharks" },
-      { game: "Canadiens vs Avalanche" },
-      { game: "Bruins vs Maple Leafs" },
-      { game: "Wild vs Hurricanes" },
-      { game: "Blues vs Blue Jackets" },
-      { game: "Utah HC vs Stars" },
-      { game: "Lightning vs Kings" },
-      { game: "Predators vs Flames" },
-      { game: "Sabres vs Golden Knights" },
-      { game: "Oilers vs Kraken" }
+      { game: "Bruins vs Panthers" },
+      { game: "Senators vs Penguins" },
+      { game: "Kraken vs Sabres" },
+      { game: "Blue Jackets vs Blues" },
+      { game: "Avalanche vs Jets" },
+      { game: "Stars vs Canadiens" },
+      { game: "Ducks vs Flyers" },
+      { game: "Oilers vs Blackhawks" },
+      { game: "Canucks vs Maple Leafs" },
+      { game: "Lightning vs Devils" },
+      { game: "Capitals vs Predators" },
+      { game: "Islanders vs Utah HC" },
+      { game: "Kings vs Flames" },
+      { game: "Rangers vs Golden Knights" },
+      { game: "Wild vs Sharks" }
     ]
   },
   {
     day: "sunday",
     games: [
-      { game: "Rangers vs Blackhawks" },
-      { game: "Penguins vs Hurricanes" },
-      { game: "Islanders vs Bruins" },
-      { game: "Flyers vs Maple Leafs" },
-      { game: "Lightning vs Ducks" }
+      { game: "Kraken vs Red Wings" },
+      { game: "Lightning vs Penguins" },
+      { game: "Stars vs Senators" },
+      { game: "Ducks vs Hurricanes" },
+      { game: "Wild vs Golden Knights" }
     ]
   }
 ];

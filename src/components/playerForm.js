@@ -61,7 +61,7 @@ const PlayerForm = ({ onSavePicks }) => {
         const activePlayers = data.map(player => player.name);
         setPlayerList([
           "Joshua",
-          "John Crocker",
+          "Fadder",
           "Jon Loder",
           "Andrew",
           "Wrinkles",

@@ -7,8 +7,8 @@ const gameResults = {
     { game: "Canadiens vs Capitals", winner: "Canadiens" },
     { game: "Canucks vs Hurricanes", winner: "Hurricanes" },
     { game: "Blackhawks vs Red Wings", winner: "Red Wings" },
-    { game: "Kings vs Jets", winner: null },
-    { game: "Sharks vs Utah HC", winner: null }
+    { game: "Kings vs Jets", winner: "Kings" },
+    { game: "Sharks vs Utah HC", winner: "Utah HC" }
   ],
   saturday: [
     { game: "Bruins vs Panthers", winner: null },

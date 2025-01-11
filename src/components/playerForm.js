@@ -67,15 +67,15 @@ const PlayerForm = ({ onSavePicks }) => {
           "Wrinkles",
           "Bunsey",
           "Dean/JD",
-          "Adam",
+          // "Adam",
           "Sadie",
-          "Landon",
-          "Clifford",
+          // "Landon",
+          // "Clifford",
           "Dave Rawding",
-          "Darryl",
+          // "Darryl",
           "Mike Greely",
           "Rod",
-          "JD Squad",
+          // "JD Squad",
           "Pat"
         ].filter(player => !activePlayers.includes(player)));
       })

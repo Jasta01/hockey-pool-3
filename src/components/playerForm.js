@@ -6,41 +6,36 @@ const schedule = [
   {
     day: "friday",
     games: [
-      { game: "Canadiens vs Capitals" },
-      { game: "Canucks vs Hurricanes" },
-      { game: "Blackhawks vs Red Wings" },
-      { game: "Kings vs Jets" },
-      { game: "Sharks vs Utah HC" }
+      { game: "Golden Knights vs Hurricanes" },
+      { game: "Penguins vs Sabres" }
     ]
   },
   {
     day: "saturday",
     games: [
-      { game: "Bruins vs Panthers" },
-      { game: "Senators vs Penguins" },
-      { game: "Kraken vs Sabres" },
-      { game: "Blue Jackets vs Blues" },
-      { game: "Avalanche vs Jets" },
-      { game: "Stars vs Canadiens" },
-      { game: "Ducks vs Flyers" },
-      { game: "Oilers vs Blackhawks" },
-      { game: "Canucks vs Maple Leafs" },
-      { game: "Lightning vs Devils" },
-      { game: "Capitals vs Predators" },
-      { game: "Islanders vs Utah HC" },
-      { game: "Kings vs Flames" },
-      { game: "Rangers vs Golden Knights" },
-      { game: "Wild vs Sharks" }
+      { game: "Flyers vs Devils" },
+      { game: "Bruins vs Senators" },
+      { game: "Stars vs Avalanche" },
+      { game: "Ducks vs Panthers" },
+      { game: "Flames vs Jets" },
+      { game: "Penguins vs Captials" },
+      { game: "Red Wings vs Lightning" },
+      { game: "Maple Leafs vs Canadiens" },
+      { game: "Blue Jackets vs Rangers" },
+      { game: "Sharks vs Islanders" },
+      { game: "Wild vs Predators" },
+      { game: "Golden Knights vs Blackhawks" },
+      { game: "Blues vs Utah HC" },
+      { game: "Kings vs Kraken" },
+      { game: "Oilers vs Canucks" }
     ]
   },
   {
     day: "sunday",
     games: [
-      { game: "Kraken vs Red Wings" },
-      { game: "Lightning vs Penguins" },
-      { game: "Stars vs Senators" },
-      { game: "Ducks vs Hurricanes" },
-      { game: "Wild vs Golden Knights" }
+      { game: "Senators vs Devils" },
+      { game: "Rangers vs Canadiens" },
+      { game: "Red Wings vs Stars" }
     ]
   }
 ];
@@ -67,16 +62,18 @@ const PlayerForm = ({ onSavePicks }) => {
           "Wrinkles",
           "Bunsey",
           "Dean/JD",
-          // "Adam",
+          "Adam",
           "Sadie",
-          // "Landon",
-          // "Clifford",
+          "Landon",
+          "Clifford",
           "Dave Rawding",
-          // "Darryl",
+          "Darryl",
           "Mike Greely",
           "Rod",
-          // "JD Squad",
-          "Pat"
+          "JD Squad",
+          "Pat",
+          "Frank",
+          "MacKenzie"
         ].filter(player => !activePlayers.includes(player)));
       })
       .catch(error => console.error("Error loading players:", error));

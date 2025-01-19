@@ -11,7 +11,7 @@ const gameResults = {
     { game: "Flyers vs Devils", winner: "Flyers" },
     { game: "Bruins vs Senators", winner: "Senators" },
     { game: "Stars vs Avalanche", winner: "Avalanche" },
-    { game: "Ducks vs Panthers", winner: null },
+    { game: "Ducks vs Panthers", winner: "Panthers" },
     { game: "Flames vs Jets", winner: null },
     { game: "Penguins vs Captials", winner: null },
     { game: "Red Wings vs Lightning", winner: null },

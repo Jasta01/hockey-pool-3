@@ -19,10 +19,10 @@ const gameResults = {
     { game: "Lightning vs Red Wings", winner: "Red Wings" },
     { game: "Kings vs Blue Jackets", winner: "Blue Jackets" },
     { game: "Flames vs Wild", winner: "Flames" },
-    { game: "Hurricanes vs Islanders", winner: null },
-    { game: "Panthers vs Sharks", winner: null },
-    { game: "Predators vs Ducks", winner: null },
-    { game: "Capitals vs Canucks", winner: null }
+    { game: "Hurricanes vs Islanders", winner: "Islanders" },
+    { game: "Panthers vs Sharks", winner: "Panthers" },
+    { game: "Predators vs Ducks", winner: "Ducks" },
+    { game: "Capitals vs Canucks", winner: "Canucks" }
   ],
   sunday: [
     { game: "Avalanche vs Rangers", winner: null },

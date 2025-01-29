@@ -6,38 +6,38 @@ const schedule = [
   {
     day: "friday",
     games: [
-      { game: "Golden Knights vs Stars" },
-      { game: "Flyers vs Islanders" },
-      { game: "Utah HC vs Jets" },
-      { game: "Lightning vs Blackhawks" }
+      { game: "Predators vs Sabres" },
+      { game: "Canucks vs Stars" },
+      { game: "Blues vs Avalanche" },
+      { game: "Blue Jackets vs Utah HC" }
     ]
   },
   {
     day: "saturday",
     games: [
-      { game: "Avalanche vs Bruins" },
-      { game: "Penguins vs Kraken" },
-      { game: "Sabres vs Oilers" },
-      { game: "Maple Leafs vs Senators" },
-      { game: "Devils vs Canadiens" },
-      { game: "Stars vs Blues" },
-      { game: "Lightning vs Red Wings" },
-      { game: "Kings vs Blue Jackets" },
-      { game: "Flames vs Wild" },
-      { game: "Hurricanes vs Islanders" },
-      { game: "Panthers vs Sharks" },
-      { game: "Predators vs Ducks" },
-      { game: "Capitals vs Canucks" }
+      { game: "Blackhawks vs Panthers" },
+      { game: "Rangers vs Bruins" },
+      { game: "Maple Leafs vs Oilers" },
+      { game: "Predators vs Penguins" },
+      { game: "Wild vs Senators" },
+      { game: "Islanders vs Lightning" },
+      { game: "Kings vs Hurricanes" },
+      { game: "Jets vs Capitals" },
+      { game: "Red Wings vs Flames" }
     ]
   },
   {
     day: "sunday",
     games: [
-      { game: "Avalanche vs Rangers" },
-      { game: "Utah HC vs Senators" },
-      { game: "Flames vs Jets" },
-      { game: "Wild vs Blackhawks" },
-      { game: "Panthers vs Golden Knights" }
+      { game: "Devils vs Sabres" },
+      { game: "Flyers vs Avalanche" },
+      { game: "Canadiens vs Ducks" },
+      { game: "Golden Knights vs Rangers" },
+      { game: "Blue Jackets vs Stars" },
+      { game: "Islanders vs Panthers" },
+      { game: "Blues vs Utah HC" },
+      { game: "Red Wings vs Canucks" },
+      { game: "Flames vs Kraken" }
     ]
   }
 ];

@@ -4,36 +4,33 @@ import PlayerForm from "./components/playerForm";
 
 const gameResults = {
   friday: [
-    { game: "Predators vs Sabres", winner: "Sabres" },
-    { game: "Canucks vs Stars", winner: "Stars" },
-    { game: "Blues vs Avalanche", winner: "Avalanche" },
-    { game: "Blue Jackets vs Utah HC", winner: "Blue Jackets" }
+    { game: "Penguins vs Rangers", winner: null },
+    { game: "Islanders vs Jets", winner: null },
+    { game: "Predators vs Blackhawks", winner: null },
+    { game: "Avalanche vs Oilers", winner: null },
+    { game: "Stars vs Kings", winner: null }
   ],
   saturday: [
-    { game: "Blackhawks vs Panthers", winner: "Panthers" },
-    { game: "Rangers vs Bruins", winner: "Bruins" },
-    { game: "Maple Leafs vs Oilers", winner: "Maple Leafs" },
-    { game: "Predators vs Penguins", winner: "Penguins" },
-    { game: "Wild vs Senators", winner: "Senators" },
-    { game: "Islanders vs Lightning", winner: "Islanders" },
-    { game: "Kings vs Hurricanes", winner: "Kings" },
-    { game: "Jets vs Capitals", winner: "Jets" },
-    { game: "Red Wings vs Flames", winner: "Red Wings" }
+    { game: "Utah HC vs Hurricanes", winner: null },
+    { game: "Lightning vs Red Wings", winner: null },
+    { game: "Devils vs Canadiens", winner: null },
+    { game: "Golden Knights vs Bruins", winner: null },
+    { game: "Maple Leafs vs Canucks", winner: null },
+    { game: "Blackhawks vs Blues", winner: null },
+    { game: "Rangers vs Blue Jackets", winner: null },
+    { game: "Senators vs Panthers", winner: null },
+    { game: "Penguins vs Flyers", winner: null },
+    { game: "Islanders vs Wild", winner: null },
+    { game: "Sabres vs Predators", winner: null },
+    { game: "Stars vs Sharks", winner: null },
+    { game: "Kraken vs Flames", winner: null },
+    { game: "Ducks vs Kings", winner: null }
   ],
   sunday: [
-    { game: "Devils vs Sabres", winner: "Sabres" },
-    { game: "Flyers vs Avalanche", winner: "Avalanche" },
-    { game: "Canadiens vs Ducks", winner: "Ducks" },
-    { game: "Golden Knights vs Rangers", winner: "Rangers" },
-    { game: "Blue Jackets vs Stars", winner: "Stars" },
-    { game: "Islanders vs Panthers", winner: "Panthers" },
-    { game: "Blues vs Utah HC", winner: "Blues" },
-    { game: "Red Wings vs Canucks", winner: "Red Wings" },
-    { game: "Flames vs Kraken", winner: "Flames" }
+    { game: "Utah HC vs Capitals", winner: null },
+    { game: "Lightning vs Canadiens", winner: null }
   ]
 };
-
-
 
 const calculateWins = (playerPicks, gameResults) => {
   let wins = 0;

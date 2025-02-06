@@ -74,7 +74,8 @@ const PlayerForm = ({ onSavePicks }) => {
           "JD Squad",
           "Pat",
           "Frank",
-          "MacKenzie"
+          "MacKenzie",
+          "Rick"
         ].filter(player => !activePlayers.includes(player)));
       })
       .catch(error => console.error("Error loading players:", error));

@@ -1,6 +1,7 @@
 import Cors from 'cors';
 import { Pool } from 'pg';
 import bodyParser from 'body-parser';
+import fetch from 'node-fetch';
 
 // Initialize CORS middleware
 const cors = Cors({
@@ -24,6 +25,42 @@ function runCors(req, res) {
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL, // Ensure this environment variable is set in Vercel
 });
+
+// Function to fetch NHL schedule
+const fetchNHLData = async () => {
+  const scheduleResponse = await fetch("https://api-web.nhle.com/v1/schedule");
+  const scheduleData = await scheduleResponse.json();
+
+  const scoreboardResponse = await fetch("https://api-web.nhle.com/v1/scoreboard");
+  const scoreboardData = await scoreboardResponse.json();
+
+  const formattedGames = { friday: [], saturday: [], sunday: [] };
+
+  scheduleData.gameWeek.forEach((game) => {
+    const gameDate = new Date(game.gameDate);
+    const day = gameDate.toLocaleDateString("en-US", { weekday: "long" }).toLowerCase();
+
+    if (formattedGames[day]) {
+      formattedGames[day].push({
+        game: `${game.awayTeam.abbrev} vs ${game.homeTeam.abbrev}`,
+        winner: null, // Initially set to null
+      });
+    }
+  });
+
+  scoreboardData.games.forEach((game) => {
+    const gameStr = `${game.awayTeam.abbrev} vs ${game.homeTeam.abbrev}`;
+    const winner = game.awayScore > game.homeScore ? game.awayTeam.abbrev : game.homeTeam.abbrev;
+
+    Object.keys(formattedGames).forEach((day) => {
+      formattedGames[day] = formattedGames[day].map((g) =>
+        g.game === gameStr ? { ...g, winner } : g
+      );
+    });
+  });
+
+  return formattedGames;
+};
 
 // Main handler function
 export default async function handler(req, res) {
@@ -75,7 +112,10 @@ export default async function handler(req, res) {
           sundayPicks: row.sunday_picks || []
         }));
 
-        res.status(200).json(playersData);
+        // Fetch NHL schedule and game results
+        const games = await fetchNHLData();
+
+        res.status(200).json({ playersData, games });
 
       } else {
         res.setHeader('Allow', ['POST', 'GET']);

@@ -13,8 +13,8 @@ const PlayerForm = ({ games, onSavePicks }) => {
     fetch('/api/handler')
       .then(response => response.json())
       .then(data => {
-        setPlayersData(data);
-        const activePlayers = data.map(player => player.name);
+        setPlayersData(data.playersData);
+        const activePlayers = data.playersData.map(player => player.name);
         setPlayerList([
           "Joshua",
           "Fadder",

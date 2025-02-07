@@ -13,30 +13,34 @@ const PlayerForm = ({ games, onSavePicks }) => {
     fetch('/api/handler')
       .then(response => response.json())
       .then(data => {
-        setPlayersData(data.playersData);
-        const activePlayers = data.playersData.map(player => player.name);
-        setPlayerList([
-          "Joshua",
-          "Fadder",
-          "Jon Loder",
-          "Andrew",
-          "Wrinkles",
-          "Bunsey",
-          "Dean/JD",
-          "Adam",
-          "Sadie",
-          "Landon",
-          "Clifford",
-          "Dave Rawding",
-          "Darryl",
-          "Mike Greely",
-          "Rod",
-          "JD Squad",
-          "Pat",
-          "Frank",
-          "MacKenzie",
-          "Rick"
-        ].filter(player => !activePlayers.includes(player)));
+        if (data.playersData) {
+          setPlayersData(data.playersData);
+          const activePlayers = data.playersData.map(player => player.name);
+          setPlayerList([
+            "Joshua",
+            "Fadder",
+            "Jon Loder",
+            "Andrew",
+            "Wrinkles",
+            "Bunsey",
+            "Dean/JD",
+            "Adam",
+            "Sadie",
+            "Landon",
+            "Clifford",
+            "Dave Rawding",
+            "Darryl",
+            "Mike Greely",
+            "Rod",
+            "JD Squad",
+            "Pat",
+            "Frank",
+            "MacKenzie",
+            "Rick"
+          ].filter(player => !activePlayers.includes(player)));
+        } else {
+          console.error("Error: playersData is undefined");
+        }
       })
       .catch(error => console.error("Error loading players:", error));
   }, []);

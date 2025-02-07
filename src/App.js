@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import PlayerForm from "./components/playerForm";
 
-const gameResults = {
+const games = {
   friday: [
     { game: "Penguins vs Rangers", winner: null },
     { game: "Islanders vs Jets", winner: null },
@@ -32,14 +32,14 @@ const gameResults = {
   ]
 };
 
-const calculateWins = (playerPicks, gameResults) => {
+const calculateWins = (playerPicks, games) => {
   let wins = 0;
 
   ["friday", "saturday", "sunday"].forEach((day) => {
-    if (!playerPicks[`${day}Picks`] || !gameResults[day]) return;
+    if (!playerPicks[`${day}Picks`] || !games[day]) return;
 
     playerPicks[`${day}Picks`].forEach((pick) => {
-      const gameResult = gameResults[day].find(
+      const gameResult = games[day].find(
         (result) => result.game === pick.game
       );
       if (gameResult && gameResult.winner === pick.pick) {
@@ -69,13 +69,13 @@ const PlayerTable = ({ playersData, expandedRows, toggleRow }) => (
             <tr className="player-row">
               <td className="player-name">{player.name}</td>
               <td className="picks-column">
-                {renderPicks(player.fridayPicks, gameResults.friday, expandedRows, index)}
+                {renderPicks(player.fridayPicks, games.friday, expandedRows, index)}
               </td>
               <td className="picks-column">
-                {renderPicks(player.saturdayPicks, gameResults.saturday, expandedRows, index)}
+                {renderPicks(player.saturdayPicks, games.saturday, expandedRows, index)}
               </td>
               <td className="picks-column">
-                {renderPicks(player.sundayPicks, gameResults.sunday, expandedRows, index)}
+                {renderPicks(player.sundayPicks, games.sunday, expandedRows, index)}
               </td>
               <td>
                 <button className="expand-button" onClick={() => toggleRow(index)}>
@@ -181,9 +181,9 @@ function App() {
     .map((player) => {
       const gamesPlayed = ["friday", "saturday", "sunday"].reduce(
         (total, day) => {
-          if (!player[`${day}Picks`] || !gameResults[day]) return total;
+          if (!player[`${day}Picks`] || !games[day]) return total;
           const dayGamesPlayed = player[`${day}Picks`].filter((pick) => {
-            const gameResult = gameResults[day].find(
+            const gameResult = games[day].find(
               (gameResult) => gameResult.game === pick.game
             );
             return gameResult && gameResult.winner;
@@ -193,7 +193,7 @@ function App() {
         0
       );
 
-      const timesWon = calculateWins(player, gameResults);
+      const timesWon = calculateWins(player, games);
       const winPercentage =
         gamesPlayed > 0 ? ((timesWon / gamesPlayed) * 100).toFixed(2) : 0;
 
@@ -209,7 +209,7 @@ function App() {
   return (
     <div className="App">
       <h1 className="app-title">Hockey Pool</h1>
-      <PlayerForm onSavePicks={(newPicks) => setPlayersData(newPicks)} />
+      <PlayerForm games={games} onSavePicks={(newPicks) => setPlayersData(newPicks)} />
       <PlayerTable
         playersData={playersData}
         expandedRows={expandedRows}

@@ -10,16 +10,11 @@ const PlayerForm = ({ games, onSavePicks }) => {
   const [playersData, setPlayersData] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/handler');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-
-        setPlayersData(data.playersData);
-        const activePlayers = data.playersData.map(player => player.name);
+    fetch('/api/handler')
+      .then(response => response.json())
+      .then(data => {
+        setPlayersData(data);
+        const activePlayers = data.map(player => player.name);
         setPlayerList([
           "Joshua",
           "Fadder",
@@ -42,12 +37,8 @@ const PlayerForm = ({ games, onSavePicks }) => {
           "MacKenzie",
           "Rick"
         ].filter(player => !activePlayers.includes(player)));
-      } catch (error) {
-        console.error("Error loading players:", error);
-      }
-    };
-
-    fetchData();
+      })
+      .catch(error => console.error("Error loading players:", error));
   }, []);
 
   const handlePickChange = (day, index, value) => {

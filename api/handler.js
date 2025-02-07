@@ -75,7 +75,7 @@ export default async function handler(req, res) {
           sundayPicks: row.sunday_picks || []
         }));
 
-        res.status(200).json({ playersData });
+        res.status(200).json(playersData);
 
       } else {
         res.setHeader('Allow', ['POST', 'GET']);

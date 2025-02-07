@@ -1,47 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./playerForm.css";
 
-// Updated schedule with the new games
-const schedule = [
-  {
-    day: "friday",
-    games: [
-      { game: "Penguins vs Rangers" },
-      { game: "Islanders vs Jets" },
-      { game: "Predators vs Blackhawks" },
-      { game: "Avalanche vs Oilers" },
-      { game: "Stars vs Kings" }
-    ]
-  },
-  {
-    day: "saturday",
-    games: [
-      { game: "Utah HC vs Hurricanes" },
-      { game: "Lightning vs Red Wings" },
-      { game: "Devils vs Canadiens" },
-      { game: "Golden Knights vs Bruins" },
-      { game: "Maple Leafs vs Canucks" },
-      { game: "Blackhawks vs Blues" },
-      { game: "Rangers vs Blue Jackets" },
-      { game: "Senators vs Panthers" },
-      { game: "Penguins vs Flyers" },
-      { game: "Islanders vs Wild" },
-      { game: "Sabres vs Predators" },
-      { game: "Stars vs Sharks" },
-      { game: "Kraken vs Flames" },
-      { game: "Ducks vs Kings" }
-    ]
-  },
-  {
-    day: "sunday",
-    games: [
-      { game: "Utah HC vs Capitals" },
-      { game: "Lightning vs Canadiens" }
-    ]
-  }
-];
-
-const PlayerForm = ({ onSavePicks }) => {
+const PlayerForm = ({ games, onSavePicks }) => {
   const [selectedPlayer, setSelectedPlayer] = useState('');
   const [fridayPicks, setFridayPicks] = useState([]);
   const [saturdayPicks, setSaturdayPicks] = useState([]);
@@ -84,7 +44,7 @@ const PlayerForm = ({ onSavePicks }) => {
   const handlePickChange = (day, index, value) => {
     const updatePicks = (dayPicks, setDayPicks) => {
       const updatedPicks = [...dayPicks];
-      updatedPicks[index] = { game: schedule.find(d => d.day === day).games[index].game, pick: value }; // Store the game and pick
+      updatedPicks[index] = { game: games[day][index].game, pick: value }; // Store the game and pick
       setDayPicks(updatedPicks);
     };
     if (day === "friday") updatePicks(fridayPicks, setFridayPicks);
@@ -96,13 +56,13 @@ const PlayerForm = ({ onSavePicks }) => {
     e.preventDefault();
   
     // Check if all picks are filled for each day
-    const isAllPicksComplete = (picks, dayIndex) => 
-      picks.length === schedule[dayIndex].games.length && picks.every(pick => pick?.pick);
+    const isAllPicksComplete = (picks, day) => 
+      picks.length === games[day].length && picks.every(pick => pick?.pick);
   
     if (!selectedPlayer ||
-        !isAllPicksComplete(fridayPicks, 0) ||
-        !isAllPicksComplete(saturdayPicks, 1) ||
-        !isAllPicksComplete(sundayPicks, 2)) {
+        !isAllPicksComplete(fridayPicks, "friday") ||
+        !isAllPicksComplete(saturdayPicks, "saturday") ||
+        !isAllPicksComplete(sundayPicks, "sunday")) {
       alert("Please complete all picks for each game and select a player name.");
       return;
     }
@@ -159,10 +119,10 @@ const PlayerForm = ({ onSavePicks }) => {
             </select>
           </div>
 
-          {schedule.map(({ day, games }) => (
+          {Object.keys(games).map((day) => (
             <div key={day} className="day-section">
               <h3 className="day-title">{day.charAt(0).toUpperCase() + day.slice(1)}'s Games</h3>
-              {games.map((game, index) => (
+              {games[day].map((game, index) => (
                 <div key={index} className="game-item">
                   <label className="game-label">{game.game}</label>
                   <select

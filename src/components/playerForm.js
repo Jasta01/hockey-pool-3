@@ -13,34 +13,30 @@ const PlayerForm = ({ games, onSavePicks }) => {
     fetch('/api/handler')
       .then(response => response.json())
       .then(data => {
-        if (data.playersData) {
-          setPlayersData(data.playersData);
-          const activePlayers = data.playersData.map(player => player.name);
-          setPlayerList([
-            "Joshua",
-            "Fadder",
-            "Jon Loder",
-            "Andrew",
-            "Wrinkles",
-            "Bunsey",
-            "Dean/JD",
-            "Adam",
-            "Sadie",
-            "Landon",
-            "Clifford",
-            "Dave Rawding",
-            "Darryl",
-            "Mike Greely",
-            "Rod",
-            "JD Squad",
-            "Pat",
-            "Frank",
-            "MacKenzie",
-            "Rick"
-          ].filter(player => !activePlayers.includes(player)));
-        } else {
-          console.error("Error: playersData is undefined");
-        }
+        setPlayersData(data.playersData);
+        const activePlayers = data.playersData.map(player => player.name);
+        setPlayerList([
+          "Joshua",
+          "Fadder",
+          "Jon Loder",
+          "Andrew",
+          "Wrinkles",
+          "Bunsey",
+          "Dean/JD",
+          "Adam",
+          "Sadie",
+          "Landon",
+          "Clifford",
+          "Dave Rawding",
+          "Darryl",
+          "Mike Greely",
+          "Rod",
+          "JD Squad",
+          "Pat",
+          "Frank",
+          "MacKenzie",
+          "Rick"
+        ].filter(player => !activePlayers.includes(player)));
       })
       .catch(error => console.error("Error loading players:", error));
   }, []);
@@ -102,7 +98,6 @@ const PlayerForm = ({ games, onSavePicks }) => {
       console.error('Error saving picks:', error);
     }
   };
-  
 
   return (
     <div className="player-form">
@@ -123,7 +118,7 @@ const PlayerForm = ({ games, onSavePicks }) => {
             </select>
           </div>
 
-          {Object.keys(games).map((day) => (
+          {games && Object.keys(games).map((day) => (
             <div key={day} className="day-section">
               <h3 className="day-title">{day.charAt(0).toUpperCase() + day.slice(1)}'s Games</h3>
               {games[day].map((game, index) => (

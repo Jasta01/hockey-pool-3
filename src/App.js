@@ -209,7 +209,7 @@ function App() {
   return (
     <div className="App">
       <h1 className="app-title">Hockey Pool</h1>
-      <PlayerForm onSavePicks={(newPicks) => setPlayersData(newPicks)} />
+      <PlayerForm games={games} onSavePicks={(newPicks) => setPlayersData(newPicks)} />
       <PlayerTable
         playersData={playersData}
         expandedRows={expandedRows}

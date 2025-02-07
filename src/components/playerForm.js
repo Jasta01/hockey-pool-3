@@ -13,8 +13,8 @@ const PlayerForm = ({ games, onSavePicks }) => {
     fetch('/api/handler')
       .then(response => response.json())
       .then(data => {
-        setPlayersData(data.playersData);
-        const activePlayers = data.playersData.map(player => player.name);
+        setPlayersData(data);
+        const activePlayers = data.map(player => player.name);
         setPlayerList([
           "Joshua",
           "Fadder",
@@ -98,6 +98,7 @@ const PlayerForm = ({ games, onSavePicks }) => {
       console.error('Error saving picks:', error);
     }
   };
+  
 
   return (
     <div className="player-form">
@@ -118,7 +119,7 @@ const PlayerForm = ({ games, onSavePicks }) => {
             </select>
           </div>
 
-          {games && Object.keys(games).map((day) => (
+          {Object.keys(games).map((day) => (
             <div key={day} className="day-section">
               <h3 className="day-title">{day.charAt(0).toUpperCase() + day.slice(1)}'s Games</h3>
               {games[day].map((game, index) => (

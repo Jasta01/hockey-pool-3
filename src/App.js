@@ -27,8 +27,8 @@ const games = {
     { game: "Ducks vs Kings", winner: "Ducks" }
   ],
   sunday: [
-    { game: "Utah HC vs Capitals", winner: null },
-    { game: "Lightning vs Canadiens", winner: null }
+    { game: "Utah HC vs Capitals", winner: "Utah HC" },
+    { game: "Lightning vs Canadiens", winner: "Lightning" }
   ]
 };
 

@@ -13,7 +13,7 @@ const games = {
     { game: "Rangers vs Sabres", winner: "Sabres" },
     { game: "Stars vs Devils", winner: "Stars" },
     { game: "Kraken vs Panthers", winner: "Kraken" },
-    { game: "Avalanche vs Predators", winner: "Predatorsl },
+    { game: "Avalanche vs Predators", winner: "Predators" },
     { game: "Hurricanes vs Maple Leafs", winner: "Maple Leafs" },
     { game: "Canadiens vs Senators", winner: "Canadiens" },
     { game: "Jets vs Blues", winner: "Jets" },

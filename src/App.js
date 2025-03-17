@@ -25,13 +25,13 @@ const games = {
     { game: "Blackhawks vs Canucks", winner: "Canucks" }
   ],
   sunday: [
-    { game: "Golden Knights vs Red Wings", winner: "Red Wings" },
-    { game: "Stars vs Avalanche", winner: "Avalanche" },
-    { game: "Ducks vs Blues", winner: "Blues" },
-    { game: "Oilers vs Rangers", winner: "Oilers" },
-    { game: "Panthers vs Islanders", winner: "Islanders" },
-    { game: "Utah Hockey Club vs Canucks", winner: "Utah Hockey Club" },
-    { game: "Jets vs Kraken", winner: "Jets" }
+    { game: "Golden Knights vs Red Wings", winner: null" },
+    { game: "Stars vs Avalanche", winner: null },
+    { game: "Ducks vs Blues", winner: null },
+    { game: "Oilers vs Rangers", winner: null },
+    { game: "Panthers vs Islanders", winner: null },
+    { game: "Utah Hockey Club vs Canucks", winner: null },
+    { game: "Jets vs Kraken", winner: null }
   ]
 };
 
